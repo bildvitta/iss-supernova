@@ -23,13 +23,6 @@ You can install the package via composer:
 composer require bildvitta/iss-supernova
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="iss-supernova-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
@@ -40,6 +33,8 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'base_uri' => env('MS_SUPERNOVA_BASE_URI', 'https://api-dev-supernova.nave.dev'),
+    'prefix' => env('MS_SUPERNOVA_API_PREFIX', '/api')
 ];
 ```
 
@@ -53,7 +48,6 @@ php artisan vendor:publish --tag="iss-supernova-views"
 
 ```php
 $issSupernova = new Bildvitta\IssSupernova();
-echo $issSupernova->echoPhrase('Hello, Bildvitta!');
 ```
 
 ## Testing
