@@ -17,9 +17,11 @@ class IssSupernovaServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('iss-supernova')
-            ->hasConfigFile()
+            ->hasConfigFile();
+        /*
             ->hasViews()
             ->hasMigration('create_iss-supernova_table')
             ->hasCommand(IssSupernovaCommand::class);
+        */
     }
 }

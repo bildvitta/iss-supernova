@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova;
 
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Client\PendingRequest;
@@ -33,12 +34,15 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
 
         if ($programmatic) {
             $clientId = Config::get('hub.programatic_access.client_id');
+            /*
             if (Cache::has($clientId)) {
                 $accessToken = Cache::get($clientId);
             } else {
                 $accessToken = $this->getToken();
                 Cache::add($clientId, $accessToken, now()->addSeconds(31536000));
             }
+            */
+            $accessToken = $this->getToken();
             $this->token = $accessToken;
         }
 
@@ -80,11 +84,8 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         );
     }
 
-    //TODO endpoints para os objetos aqui
-    /*
-    public function objects(): Objects
+    public function realEstateDevelopments()
     {
-        return new Objects($this);
+        return new RealEstateDevelopments($this);
     }
-    */
 }
