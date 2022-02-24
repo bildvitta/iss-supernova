@@ -2,8 +2,11 @@
 
 namespace Bildvitta\IssSupernova;
 
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentParameters;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentTypologies;
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
@@ -87,5 +90,20 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function realEstateDevelopments()
     {
         return new RealEstateDevelopments($this);
+    }
+
+    public function realEstateDevelopmentParameters()
+    {
+        return new RealEstateDevelopmentParameters($this);
+    }
+
+    public function realEstateDevelopmentUnits()
+    {
+        return new RealEstateDevelopmentUnits($this);
+    }
+
+    public function realEstateDevelopmentTypologies()
+    {
+        return new RealEstateDevelopmentTypologies($this);
     }
 }

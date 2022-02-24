@@ -4,7 +4,7 @@ namespace Bildvitta\IssSupernova\Resources;
 
 use Bildvitta\IssSupernova\IssSupernova;
 
-class RealEstateDevelopments
+class RealEstateDevelopmentParameters
 {
     private IssSupernova $issSupernova;
 
@@ -16,7 +16,7 @@ class RealEstateDevelopments
     public function create($data)
     {
         return $this->issSupernova->request->post(
-            '/real-estate-developments',
+            '/real-estate-developments/parameters',
             $data
         )->throw()->object();
     }
@@ -24,7 +24,7 @@ class RealEstateDevelopments
     public function update($data)
     {
         return $this->issSupernova->request->put(
-            '/real-estate-developments',
+            '/real-estate-developments/parameters',
             $data
         )->throw()->object();
     }

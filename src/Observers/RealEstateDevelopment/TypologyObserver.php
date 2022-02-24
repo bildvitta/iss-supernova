@@ -5,16 +5,17 @@ namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\Log;
 
-class RealEstateDevelopmentObserver
+class TypologyObserver
 {
-    public function created($realEstateDeveloptment)
+    public function created($typology)
     {
-        $data = $realEstateDeveloptment->toArray();
+        $typology->loadMissing('realEstateDevelopment');
+        $data = $typology->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopments()->create($data);
+            $response = $issSupernova->realEstateDevelopmentTypologies()->create($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -22,14 +23,15 @@ class RealEstateDevelopmentObserver
         }
     }
 
-    public function updated($realEstateDeveloptment)
+    public function updated($typology)
     {
-        $data = $realEstateDeveloptment->toArray();
+        $typology->loadMissing('realEstateDevelopment');
+        $data = $typology->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopments()->update($data);
+            $response = $issSupernova->realEstateDevelopmentTypologies()->update($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -37,7 +39,7 @@ class RealEstateDevelopmentObserver
         }
     }
 
-    public function deleted($realEstateDeveloptment)
+    public function deleted($typology)
     {
         //
     }

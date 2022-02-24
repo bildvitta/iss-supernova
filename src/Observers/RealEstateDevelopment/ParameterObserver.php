@@ -5,16 +5,17 @@ namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\Log;
 
-class RealEstateDevelopmentObserver
+class ParameterObserver
 {
-    public function created($realEstateDeveloptment)
+    public function created($parameter)
     {
-        $data = $realEstateDeveloptment->toArray();
+        $parameter->loadMissing('realEstateDevelopment');
+        $data = $parameter->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopments()->create($data);
+            $response = $issSupernova->realEstateDevelopmentParameters()->create($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -22,14 +23,15 @@ class RealEstateDevelopmentObserver
         }
     }
 
-    public function updated($realEstateDeveloptment)
+    public function updated($parameter)
     {
-        $data = $realEstateDeveloptment->toArray();
+        $parameter->loadMissing('realEstateDevelopment');
+        $data = $parameter->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopments()->update($data);
+            $response = $issSupernova->realEstateDevelopmentParameters()->update($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -37,7 +39,7 @@ class RealEstateDevelopmentObserver
         }
     }
 
-    public function deleted($realEstateDeveloptment)
+    public function deleted($parameter)
     {
         //
     }
