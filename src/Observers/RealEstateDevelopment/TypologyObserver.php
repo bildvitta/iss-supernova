@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Log;
 
 class TypologyObserver
 {
-    public function created($typology)
+    public function created($parameter)
     {
-        $typology->loadMissing('realEstateDevelopment');
-        $data = $typology->toArray();
+        $parameter->loadMissing('realEstateDevelopment');
+        $data = $parameter->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -23,10 +23,10 @@ class TypologyObserver
         }
     }
 
-    public function updated($typology)
+    public function updated($parameter)
     {
-        $typology->loadMissing('realEstateDevelopment');
-        $data = $typology->toArray();
+        $parameter->loadMissing('realEstateDevelopment');
+        $data = $parameter->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -39,7 +39,7 @@ class TypologyObserver
         }
     }
 
-    public function deleted($typology)
+    public function deleted($parameter)
     {
         //
     }
