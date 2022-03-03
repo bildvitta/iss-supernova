@@ -2,7 +2,11 @@
 
 namespace Bildvitta\IssSupernova;
 
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentParameters;
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentTypologies;
+use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
@@ -33,12 +37,15 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
 
         if ($programmatic) {
             $clientId = Config::get('hub.programatic_access.client_id');
+            /*
             if (Cache::has($clientId)) {
                 $accessToken = Cache::get($clientId);
             } else {
                 $accessToken = $this->getToken();
                 Cache::add($clientId, $accessToken, now()->addSeconds(31536000));
             }
+            */
+            $accessToken = $this->getToken();
             $this->token = $accessToken;
         }
 
@@ -80,11 +87,23 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         );
     }
 
-    //TODO endpoints para os objetos aqui
-    /*
-    public function objects(): Objects
+    public function realEstateDevelopments()
     {
-        return new Objects($this);
+        return new RealEstateDevelopments($this);
     }
-    */
+
+    public function realEstateDevelopmentParameters()
+    {
+        return new RealEstateDevelopmentParameters($this);
+    }
+
+    public function realEstateDevelopmentUnits()
+    {
+        return new RealEstateDevelopmentUnits($this);
+    }
+
+    public function realEstateDevelopmentTypologies()
+    {
+        return new RealEstateDevelopmentTypologies($this);
+    }
 }
