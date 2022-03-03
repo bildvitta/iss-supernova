@@ -3,12 +3,17 @@
 namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 
 use Bildvitta\IssSupernova\IssSupernova;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 class RealEstateDevelopmentObserver
 {
     public function created($realEstateDeveloptment)
     {
+        if (App::runningUnitTests()) {
+            return;
+        }
+        
         $data = $realEstateDeveloptment->toArray();
         $data['sync_to'] = 'sys';
 
@@ -24,6 +29,10 @@ class RealEstateDevelopmentObserver
 
     public function updated($realEstateDeveloptment)
     {
+        if (App::runningUnitTests()) {
+            return;
+        }
+        
         $data = $realEstateDeveloptment->toArray();
         $data['sync_to'] = 'sys';
 
