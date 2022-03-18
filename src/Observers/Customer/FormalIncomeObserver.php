@@ -1,27 +1,31 @@
 <?php
 
-namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
+namespace Bildvitta\IssSupernova\Observers\Customer;
 
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
-class TypologyObserver
+class FormalIncomeObserver
 {
-    public function created($parameter)
+    public function created($customer)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $parameter->loadMissing('realEstateDevelopment');
-        $data = $parameter->toArray();
+        $customer->loadMissing(
+            'customer',
+            'occupation',
+            'proof_of_income_type',
+        );
+        $data = $customer->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopmentTypologies()->create($data);
+            $response = $issSupernova->customerFormalIncomes()->create($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -29,19 +33,23 @@ class TypologyObserver
         }
     }
 
-    public function updated($parameter)
+    public function updated($customer)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
-        
-        $parameter->loadMissing('realEstateDevelopment');
-        $data = $parameter->toArray();
+
+        $customer->loadMissing(
+            'customer',
+            'occupation',
+            'proof_of_income_type',
+        );
+        $data = $customer->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopmentTypologies()->update($data);
+            $response = $issSupernova->customerFormalIncomes()->update($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -49,7 +57,7 @@ class TypologyObserver
         }
     }
 
-    public function deleted($parameter)
+    public function deleted($customer)
     {
         //
     }
