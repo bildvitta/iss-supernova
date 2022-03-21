@@ -2,6 +2,20 @@
 
 namespace Bildvitta\IssSupernova;
 
+use Bildvitta\IssSupernova\Resources\CustomerBankAccounts;
+use Bildvitta\IssSupernova\Resources\CustomerCreditCards;
+use Bildvitta\IssSupernova\Resources\CustomerDependents;
+use Bildvitta\IssSupernova\Resources\CustomerDocuments;
+use Bildvitta\IssSupernova\Resources\CustomerFgtsAccounts;
+use Bildvitta\IssSupernova\Resources\CustomerFinancialCommitments;
+use Bildvitta\IssSupernova\Resources\CustomerFormalIncomes;
+use Bildvitta\IssSupernova\Resources\CustomerHeritageCars;
+use Bildvitta\IssSupernova\Resources\CustomerHeritagePropertys;
+use Bildvitta\IssSupernova\Resources\CustomerInformalIncomes;
+use Bildvitta\IssSupernova\Resources\CustomerInvestments;
+use Bildvitta\IssSupernova\Resources\CustomerMonthlyFamilyExpenses;
+use Bildvitta\IssSupernova\Resources\CustomerPersonalReferences;
+use Bildvitta\IssSupernova\Resources\Customers;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentParameters;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
@@ -105,5 +119,75 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function realEstateDevelopmentTypologies()
     {
         return new RealEstateDevelopmentTypologies($this);
+    }
+
+    public function customers()
+    {
+        return new Customers($this);
+    }
+
+    public function customerBankAccounts()
+    {
+        return new CustomerBankAccounts($this);
+    }
+
+    public function customerCreditCards()
+    {
+        return new CustomerCreditCards($this);
+    }
+
+    public function customerDependents()
+    {
+        return new CustomerDependents($this);
+    }
+
+    public function customerDocuments()
+    {
+        return new CustomerDocuments($this);
+    }
+
+    public function customerFgtsAccounts()
+    {
+        return new CustomerFgtsAccounts($this);
+    }
+
+    public function customerFinancialCommitments()
+    {
+        return new CustomerFinancialCommitments($this);
+    }
+
+    public function customerFormalIncomes()
+    {
+        return new CustomerFormalIncomes($this);
+    }
+
+    public function customerHeritageCars()
+    {
+        return new CustomerHeritageCars($this);
+    }
+
+    public function customerHeritagePropertys()
+    {
+        return new CustomerHeritagePropertys($this);
+    }
+
+    public function customerInformalIncomes()
+    {
+        return new CustomerInformalIncomes($this);
+    }
+
+    public function customerInvestments()
+    {
+        return new CustomerInvestments($this);
+    }
+
+    public function customerMonthlyFamilyExpenses()
+    {
+        return new CustomerMonthlyFamilyExpenses($this);
+    }
+
+    public function customerPersonalReferences()
+    {
+        return new CustomerPersonalReferences($this);
     }
 }

@@ -4,13 +4,14 @@ namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class UnitObserver
 {
     public function created($parameter)
     {
-        if (App::runningUnitTests()) {
+        if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -37,10 +38,10 @@ class UnitObserver
 
     public function updated($parameter)
     {
-        if (App::runningUnitTests()) {
+        if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
-        
+
         $parameter->loadMissing(
             'realEstateDevelopment',
             'typology',
