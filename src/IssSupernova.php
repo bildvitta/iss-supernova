@@ -21,6 +21,7 @@ use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentTypologies;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
+use Bildvitta\IssSupernova\Resources\Users;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
@@ -189,5 +190,10 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function customerPersonalReferences()
     {
         return new CustomerPersonalReferences($this);
+    }
+
+    public function users()
+    {
+        return new Users($this);
     }
 }
