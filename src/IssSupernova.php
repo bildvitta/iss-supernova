@@ -16,6 +16,7 @@ use Bildvitta\IssSupernova\Resources\CustomerInvestments;
 use Bildvitta\IssSupernova\Resources\CustomerMonthlyFamilyExpenses;
 use Bildvitta\IssSupernova\Resources\CustomerPersonalReferences;
 use Bildvitta\IssSupernova\Resources\Customers;
+use Bildvitta\IssSupernova\Resources\RealEstateAgencies;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentParameters;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
@@ -120,6 +121,11 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function realEstateDevelopmentTypologies()
     {
         return new RealEstateDevelopmentTypologies($this);
+    }
+
+    public function realEstateAgencies()
+    {
+        return new RealEstateAgencies($this);
     }
 
     public function customers()
