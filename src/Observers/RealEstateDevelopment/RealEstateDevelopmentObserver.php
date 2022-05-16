@@ -15,6 +15,9 @@ class RealEstateDevelopmentObserver
             return;
         }
 
+        $realEstateDeveloptment->loadMissing(
+            'hub_company',
+        );
         $data = $realEstateDeveloptment->toArray();
         $data['sync_to'] = 'sys';
 
@@ -34,6 +37,9 @@ class RealEstateDevelopmentObserver
             return;
         }
 
+        $realEstateDeveloptment->loadMissing(
+            'hub_company',
+        );
         $data = $realEstateDeveloptment->toArray();
         $data['sync_to'] = 'sys';
 

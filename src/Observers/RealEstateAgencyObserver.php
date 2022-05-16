@@ -1,33 +1,26 @@
 <?php
 
-namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
+namespace Bildvitta\IssSupernova\Observers;
 
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
-class UnitObserver
+class RealEstateAgencyObserver
 {
-    public function created($parameter)
+    public function created($realEstateAgency)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $parameter->loadMissing(
-            'realEstateDevelopment',
-            'typology',
-            'real_estate_developments_blueprints',
-            'mirror_group',
-            'mirror_subgroup'
-        );
-        $data = $parameter->toArray();
+        $data = $realEstateAgency->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopmentUnits()->create($data);
+            $response = $issSupernova->realEstateAgencies()->create($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -35,25 +28,18 @@ class UnitObserver
         }
     }
 
-    public function updated($parameter)
+    public function updated($realEstateAgency)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $parameter->loadMissing(
-            'realEstateDevelopment',
-            'typology',
-            'real_estate_developments_blueprints',
-            'mirror_group',
-            'mirror_subgroup'
-        );
-        $data = $parameter->toArray();
+        $data = $realEstateAgency->toArray();
         $data['sync_to'] = 'sys';
 
         try {
             $issSupernova = new IssSupernova();
-            $response = $issSupernova->realEstateDevelopmentUnits()->update($data);
+            $response = $issSupernova->realEstateAgencies()->update($data);
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -61,7 +47,7 @@ class UnitObserver
         }
     }
 
-    public function deleted($parameter)
+    public function deleted($realEstateAgency)
     {
         //
     }

@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Log;
 
 class TypologyObserver
 {
-    public function created($parameter)
+    public function created($typology)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $parameter->loadMissing('realEstateDevelopment');
-        $data = $parameter->toArray();
+        $typology->loadMissing('realEstateDevelopment');
+        $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();
+        $typology->realEstateDevelopment->hub_company = $typology->realEstateDevelopment->hub_company;
+        $data = $typology->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -29,14 +31,16 @@ class TypologyObserver
         }
     }
 
-    public function updated($parameter)
+    public function updated($typology)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
-        
-        $parameter->loadMissing('realEstateDevelopment');
-        $data = $parameter->toArray();
+
+        $typology->loadMissing('realEstateDevelopment');
+        $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();
+        $typology->realEstateDevelopment->hub_company = $typology->realEstateDevelopment->hub_company;
+        $data = $typology->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -49,7 +53,7 @@ class TypologyObserver
         }
     }
 
-    public function deleted($parameter)
+    public function deleted($typology)
     {
         //
     }

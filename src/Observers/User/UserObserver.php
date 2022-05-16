@@ -21,10 +21,17 @@ class UserObserver
             'groups',
         );
         $data = $user->toArray();
-        $data['permissions'] = $user->getAllPermissions();
-        $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
-        $data['manager_uuid'] = $data['supervisor_uuid'] ? $this->getUserUuidByPermission('manager.supervisors.' . $data['supervisor_uuid']) : null;
         $data['sync_to'] = 'sys';
+        $data['permissions'] = $user->getAllPermissions();
+
+        //Supervisor
+        $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
+
+        //Gerente
+        $data['manager_uuid'] = $data['supervisor_uuid'] ? $this->getUserUuidByPermission('manager.supervisors.' . $data['supervisor_uuid']) : null;
+        if (!$data['manager_uuid']) {
+            $data['manager_uuid'] = $this->getUserUuidByPermission('manager.supervisors.' . $user->uuid);
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -47,10 +54,17 @@ class UserObserver
             'groups',
         );
         $data = $user->toArray();
-        $data['permissions'] = $user->getAllPermissions();
-        $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
-        $data['manager_uuid'] = $data['supervisor_uuid'] ? $this->getUserUuidByPermission('manager.supervisors.' . $data['supervisor_uuid']) : null;
         $data['sync_to'] = 'sys';
+        $data['permissions'] = $user->getAllPermissions();
+
+        //Supervisor
+        $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
+
+        //Gerente
+        $data['manager_uuid'] = $data['supervisor_uuid'] ? $this->getUserUuidByPermission('manager.supervisors.' . $data['supervisor_uuid']) : null;
+        if (!$data['manager_uuid']) {
+            $data['manager_uuid'] = $this->getUserUuidByPermission('manager.supervisors.' . $user->uuid);
+        }
 
         try {
             $issSupernova = new IssSupernova();
