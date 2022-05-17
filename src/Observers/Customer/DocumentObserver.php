@@ -22,6 +22,9 @@ class DocumentObserver
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
 
+        //Passo o campo file novamente pois Document::getFileAttribute() gera uma url temporária de 5 minutos do S3
+        $data['file'] = $customer->getAttributes()['file'];
+
         try {
             $issSupernova = new IssSupernova();
             $response = $issSupernova->customerDocuments()->create($data);
@@ -44,6 +47,9 @@ class DocumentObserver
         );
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
+
+        //Passo o campo file novamente pois Document::getFileAttribute() gera uma url temporária de 5 minutos do S3
+        $data['file'] = $customer->getAttributes()['file'];
 
         try {
             $issSupernova = new IssSupernova();
