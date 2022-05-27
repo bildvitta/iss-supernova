@@ -17,7 +17,7 @@ class SaleObserver
 
         $sale->loadMissing(
             'customer',
-            'bonds',
+            'customers',
             'product',
             'insurance',
             'seller',
@@ -30,6 +30,23 @@ class SaleObserver
             'facts',
             'real_estate_agency'
         );
+        if ($sale->product) {
+            $sale->product->loadMissing(
+                'hub_company'
+            );
+        }
+        if ($sale->unit) {
+            $sale->unit->loadMissing(
+                'typology',
+                'sale_step',
+            );
+        }
+        if ($sale->customer) {
+            $sale->customer->loadMissing(
+                'related_customer',
+                'related_customers'
+            );
+        }
         $data = $sale->toArray();
         $data['sync_to'] = 'sys';
 
@@ -51,7 +68,7 @@ class SaleObserver
 
         $sale->loadMissing(
             'customer',
-            'bonds',
+            'customers',
             'product',
             'insurance',
             'seller',
@@ -64,6 +81,23 @@ class SaleObserver
             'facts',
             'real_estate_agency'
         );
+        if ($sale->product) {
+            $sale->product->loadMissing(
+                'hub_company'
+            );
+        }
+        if ($sale->unit) {
+            $sale->unit->loadMissing(
+                'typology',
+                'sale_step',
+            );
+        }
+        if ($sale->customer) {
+            $sale->customer->loadMissing(
+                'related_customer',
+                'related_customers'
+            );
+        }
         $data = $sale->toArray();
         $data['sync_to'] = 'sys';
 
