@@ -28,7 +28,8 @@ class SaleObserver
             'proposal_model',
             'periodicities',
             'facts',
-            'real_estate_agency'
+            'real_estate_agency',
+            'justified_user'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -79,7 +80,8 @@ class SaleObserver
             'proposal_model',
             'periodicities',
             'facts',
-            'real_estate_agency'
+            'real_estate_agency',
+            'justified_user'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
