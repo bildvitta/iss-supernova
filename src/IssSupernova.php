@@ -24,6 +24,7 @@ use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentTypologies;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
+use Bildvitta\IssSupernova\Resources\SaleAccessories;
 use Bildvitta\IssSupernova\Resources\SalePeriodicities;
 use Bildvitta\IssSupernova\Resources\Sales;
 use Bildvitta\IssSupernova\Resources\Users;
@@ -225,5 +226,10 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function salePeriodicities()
     {
         return new SalePeriodicities($this);
+    }
+
+    public function saleAccessories()
+    {
+        return new SaleAccessories($this);
     }
 }
