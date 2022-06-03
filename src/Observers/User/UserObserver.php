@@ -16,6 +16,10 @@ class UserObserver
             return;
         }
 
+        if(strpos($user->name, 'supernova') === false) {
+            return;
+        }
+
         $user->loadMissing(
             'company',
             'groups',
@@ -46,6 +50,10 @@ class UserObserver
     public function updated($user)
     {
         if (!Config::get('iss-supernova.base_uri')) {
+            return;
+        }
+
+        if(strpos($user->name, 'supernova') === false) {
             return;
         }
 
