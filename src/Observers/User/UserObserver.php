@@ -38,7 +38,7 @@ class UserObserver
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova('no-token');
             $response = $issSupernova->users()->create($data);
             return $response;
         } catch (\Throwable $exception) {
@@ -75,7 +75,7 @@ class UserObserver
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova('no-token');
             $response = $issSupernova->users()->update($data);
             return $response;
         } catch (\Throwable $exception) {
