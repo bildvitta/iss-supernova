@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class CreditCardObserver
 {
-    public function created($customer)
+    public function created($creditCard)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $creditCard->loadMissing(
             'customer',
             'credit_card_flag',
         );
-        $data = $customer->toArray();
+        $data = $creditCard->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class CreditCardObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($creditCard)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $creditCard->loadMissing(
             'customer',
             'credit_card_flag',
         );
-        $data = $customer->toArray();
+        $data = $creditCard->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class CreditCardObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($creditCard)
     {
-        //
+        $this->updated($creditCard);
     }
 }

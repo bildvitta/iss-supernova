@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class PersonalReferenceObserver
 {
-    public function created($customer)
+    public function created($personalReference)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $personalReference->loadMissing(
             'customer',
             'relation_type',
         );
-        $data = $customer->toArray();
+        $data = $personalReference->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class PersonalReferenceObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($personalReference)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $personalReference->loadMissing(
             'customer',
             'relation_type',
         );
-        $data = $customer->toArray();
+        $data = $personalReference->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class PersonalReferenceObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($personalReference)
     {
-        //
+        $this->updated($personalReference);
     }
 }

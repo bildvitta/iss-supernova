@@ -55,6 +55,6 @@ class TypologyObserver
 
     public function deleted($typology)
     {
-        //
+        $this->updated($typology);
     }
 }

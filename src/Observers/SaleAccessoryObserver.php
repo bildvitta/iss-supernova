@@ -71,6 +71,6 @@ class SaleAccessoryObserver
 
     public function deleted($saleAccessory)
     {
-        //
+        $this->updated($saleAccessory);
     }
 }

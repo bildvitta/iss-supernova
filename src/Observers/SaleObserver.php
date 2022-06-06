@@ -115,6 +115,6 @@ class SaleObserver
 
     public function deleted($sale)
     {
-        //
+        $this->updated($sale);
     }
 }

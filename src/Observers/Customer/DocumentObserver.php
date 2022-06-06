@@ -9,21 +9,21 @@ use Illuminate\Support\Facades\Log;
 
 class DocumentObserver
 {
-    public function created($customer)
+    public function created($document)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $document->loadMissing(
             'customer',
             'document_type',
         );
-        $data = $customer->toArray();
+        $data = $document->toArray();
         $data['sync_to'] = 'sys';
 
         //Passo o campo file novamente pois Document::getFileAttribute() gera uma url temporária de 5 minutos do S3
-        $data['file'] = $customer->getAttributes()['file'];
+        $data['file'] = $document->getAttributes()['file'];
 
         try {
             $issSupernova = new IssSupernova();
@@ -35,21 +35,21 @@ class DocumentObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($document)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $document->loadMissing(
             'customer',
             'document_type',
         );
-        $data = $customer->toArray();
+        $data = $document->toArray();
         $data['sync_to'] = 'sys';
 
         //Passo o campo file novamente pois Document::getFileAttribute() gera uma url temporária de 5 minutos do S3
-        $data['file'] = $customer->getAttributes()['file'];
+        $data['file'] = $document->getAttributes()['file'];
 
         try {
             $issSupernova = new IssSupernova();
@@ -61,8 +61,8 @@ class DocumentObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($document)
     {
-        //
+        $this->updated($document);
     }
 }

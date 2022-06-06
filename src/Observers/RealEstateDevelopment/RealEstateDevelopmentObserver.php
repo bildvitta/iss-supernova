@@ -55,6 +55,6 @@ class RealEstateDevelopmentObserver
 
     public function deleted($realEstateDeveloptment)
     {
-        //
+        $this->updated($realEstateDeveloptment);
     }
 }

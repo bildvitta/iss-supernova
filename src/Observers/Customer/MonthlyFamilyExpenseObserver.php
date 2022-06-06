@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Log;
 
 class MonthlyFamilyExpenseObserver
 {
-    public function created($customer)
+    public function created($monthlyFamilyExpense)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $monthlyFamilyExpense->loadMissing(
             'customer',
         );
-        $data = $customer->toArray();
+        $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -31,16 +31,16 @@ class MonthlyFamilyExpenseObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($monthlyFamilyExpense)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $monthlyFamilyExpense->loadMissing(
             'customer',
         );
-        $data = $customer->toArray();
+        $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -53,8 +53,8 @@ class MonthlyFamilyExpenseObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($monthlyFamilyExpense)
     {
-        //
+        $this->updated($monthlyFamilyExpense);
     }
 }

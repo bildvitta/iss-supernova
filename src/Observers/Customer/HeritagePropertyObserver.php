@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class HeritagePropertyObserver
 {
-    public function created($customer)
+    public function created($heritageProperty)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $heritageProperty->loadMissing(
             'customer',
             'property_type',
         );
-        $data = $customer->toArray();
+        $data = $heritageProperty->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class HeritagePropertyObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($heritageProperty)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $heritageProperty->loadMissing(
             'customer',
             'property_type',
         );
-        $data = $customer->toArray();
+        $data = $heritageProperty->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class HeritagePropertyObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($heritageProperty)
     {
-        //
+        $this->updated($heritageProperty);
     }
 }

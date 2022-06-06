@@ -49,6 +49,6 @@ class RealEstateAgencyObserver
 
     public function deleted($realEstateAgency)
     {
-        //
+        $this->updated($realEstateAgency);
     }
 }

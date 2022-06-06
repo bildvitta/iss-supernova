@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Log;
 
 class FgtsAccountObserver
 {
-    public function created($customer)
+    public function created($fgtsAccount)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $fgtsAccount->loadMissing(
             'customer',
         );
-        $data = $customer->toArray();
+        $data = $fgtsAccount->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -31,16 +31,16 @@ class FgtsAccountObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($fgtsAccount)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $fgtsAccount->loadMissing(
             'customer',
         );
-        $data = $customer->toArray();
+        $data = $fgtsAccount->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -53,8 +53,8 @@ class FgtsAccountObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($fgtsAccount)
     {
-        //
+        $this->updated($fgtsAccount);
     }
 }

@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class InvestmentObserver
 {
-    public function created($customer)
+    public function created($investment)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $investment->loadMissing(
             'customer',
             'bank',
         );
-        $data = $customer->toArray();
+        $data = $investment->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class InvestmentObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($investment)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $investment->loadMissing(
             'customer',
             'bank',
         );
-        $data = $customer->toArray();
+        $data = $investment->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class InvestmentObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($investment)
     {
-        //
+        $this->updated($investment);
     }
 }

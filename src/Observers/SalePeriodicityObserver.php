@@ -55,6 +55,6 @@ class SalePeriodicityObserver
 
     public function deleted($salePeriodicity)
     {
-        //
+        $this->updated($salePeriodicity);
     }
 }

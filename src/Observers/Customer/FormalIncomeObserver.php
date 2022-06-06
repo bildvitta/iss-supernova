@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\Log;
 
 class FormalIncomeObserver
 {
-    public function created($customer)
+    public function created($formalIncome)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $formalIncome->loadMissing(
             'customer',
             'occupation',
             'proof_of_income_type',
         );
-        $data = $customer->toArray();
+        $data = $formalIncome->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -33,18 +33,18 @@ class FormalIncomeObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($formalIncome)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $formalIncome->loadMissing(
             'customer',
             'occupation',
             'proof_of_income_type',
         );
-        $data = $customer->toArray();
+        $data = $formalIncome->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -57,8 +57,8 @@ class FormalIncomeObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($formalIncome)
     {
-        //
+        $this->updated($formalIncome);
     }
 }

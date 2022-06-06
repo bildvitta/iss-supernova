@@ -69,6 +69,6 @@ class AccessoryObserver
 
     public function deleted($accessory)
     {
-        //
+        $this->updated($accessory);
     }
 }

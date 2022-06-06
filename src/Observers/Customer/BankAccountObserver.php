@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class BankAccountObserver
 {
-    public function created($customer)
+    public function created($bankAccount)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $bankAccount->loadMissing(
             'customer',
             'bank',
         );
-        $data = $customer->toArray();
+        $data = $bankAccount->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class BankAccountObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($bankAccount)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $bankAccount->loadMissing(
             'customer',
             'bank',
         );
-        $data = $customer->toArray();
+        $data = $bankAccount->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class BankAccountObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($bankAccount)
     {
-        //
+        $this->updated($bankAccount);
     }
 }

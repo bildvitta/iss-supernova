@@ -53,6 +53,6 @@ class BlueprintObserver
 
     public function deleted($blueprint)
     {
-        //
+        $this->updated($blueprint);
     }
 }

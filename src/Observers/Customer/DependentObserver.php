@@ -9,19 +9,19 @@ use Illuminate\Support\Facades\Log;
 
 class DependentObserver
 {
-    public function created($customer)
+    public function created($dependent)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $dependent->loadMissing(
             'customer',
             'dependent_type',
             'educational_institution',
             'educational_course',
         );
-        $data = $customer->toArray();
+        $data = $dependent->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -34,19 +34,19 @@ class DependentObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($dependent)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $dependent->loadMissing(
             'customer',
             'dependent_type',
             'educational_institution',
             'educational_course',
         );
-        $data = $customer->toArray();
+        $data = $dependent->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -59,8 +59,8 @@ class DependentObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($dependent)
     {
-        //
+        $this->updated($dependent);
     }
 }

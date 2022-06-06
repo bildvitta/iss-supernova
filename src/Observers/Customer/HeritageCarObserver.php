@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class HeritageCarObserver
 {
-    public function created($customer)
+    public function created($heritageCar)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $heritageCar->loadMissing(
             'customer',
             'car_type',
         );
-        $data = $customer->toArray();
+        $data = $heritageCar->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class HeritageCarObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($heritageCar)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $heritageCar->loadMissing(
             'customer',
             'car_type',
         );
-        $data = $customer->toArray();
+        $data = $heritageCar->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class HeritageCarObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($heritageCar)
     {
-        //
+        $this->updated($heritageCar);
     }
 }

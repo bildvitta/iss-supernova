@@ -78,7 +78,7 @@ class UserObserver
 
     public function deleted($user)
     {
-        //
+        $this->updated($user);
     }
 
     protected function getUserUuidByPermission($permission, $projectSlug='modular') {

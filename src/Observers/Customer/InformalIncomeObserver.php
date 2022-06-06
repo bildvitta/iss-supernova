@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 
 class InformalIncomeObserver
 {
-    public function created($customer)
+    public function created($informalIncome)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $informalIncome->loadMissing(
             'customer',
             'occupation',
         );
-        $data = $customer->toArray();
+        $data = $informalIncome->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -32,17 +32,17 @@ class InformalIncomeObserver
         }
     }
 
-    public function updated($customer)
+    public function updated($informalIncome)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $customer->loadMissing(
+        $informalIncome->loadMissing(
             'customer',
             'occupation',
         );
-        $data = $customer->toArray();
+        $data = $informalIncome->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -55,8 +55,8 @@ class InformalIncomeObserver
         }
     }
 
-    public function deleted($customer)
+    public function deleted($informalIncome)
     {
-        //
+        $this->updated($informalIncome);
     }
 }

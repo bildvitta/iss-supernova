@@ -51,6 +51,6 @@ class ParameterObserver
 
     public function deleted($parameter)
     {
-        //
+        $this->updated($parameter);
     }
 }

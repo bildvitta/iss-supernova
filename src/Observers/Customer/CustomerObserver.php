@@ -91,6 +91,6 @@ class CustomerObserver
 
     public function deleted($customer)
     {
-        //
+        $this->updated($customer);
     }
 }

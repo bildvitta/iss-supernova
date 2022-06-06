@@ -9,20 +9,20 @@ use Illuminate\Support\Facades\Log;
 
 class UnitObserver
 {
-    public function created($parameter)
+    public function created($unit)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $parameter->loadMissing(
+        $unit->loadMissing(
             'realEstateDevelopment',
             'typology',
             'real_estate_developments_blueprints',
             'mirror_group',
             'mirror_subgroup'
         );
-        $data = $parameter->toArray();
+        $data = $unit->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -35,20 +35,20 @@ class UnitObserver
         }
     }
 
-    public function updated($parameter)
+    public function updated($unit)
     {
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
 
-        $parameter->loadMissing(
+        $unit->loadMissing(
             'realEstateDevelopment',
             'typology',
             'real_estate_developments_blueprints',
             'mirror_group',
             'mirror_subgroup'
         );
-        $data = $parameter->toArray();
+        $data = $unit->toArray();
         $data['sync_to'] = 'sys';
 
         try {
@@ -61,8 +61,8 @@ class UnitObserver
         }
     }
 
-    public function deleted($parameter)
+    public function deleted($unit)
     {
-        //
+        $this->updated($unit);
     }
 }
