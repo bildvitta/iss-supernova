@@ -17,12 +17,20 @@ class AccessoryObserver
 
         $accessory->loadMissing(
             'real_estate_development',
-            'accessory'
+            'accessory',
+            'typologies'
         );
         if ($accessory->real_estate_development) {
             $accessory->real_estate_development->loadMissing(
                 'blueprints'
             );
+        }
+        if ($accessory->typologies) {
+            foreach ($accessory->typologies as $acessoryTypology) {
+                $acessoryTypology->loadMissing(
+                    'blueprints'
+                );
+            }
         }
 
         $data = $accessory->toArray();
@@ -46,12 +54,20 @@ class AccessoryObserver
 
         $accessory->loadMissing(
             'real_estate_development',
-            'accessory'
+            'accessory',
+            'typologies'
         );
         if ($accessory->real_estate_development) {
             $accessory->real_estate_development->loadMissing(
                 'blueprints'
             );
+        }
+        if ($accessory->typologies) {
+            foreach ($accessory->typologies as $acessoryTypology) {
+                $acessoryTypology->loadMissing(
+                    'blueprints'
+                );
+            }
         }
 
         $data = $accessory->toArray();
