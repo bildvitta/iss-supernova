@@ -15,7 +15,21 @@ class BlueprintObserver
             return;
         }
 
-        $blueprint->loadMissing('real_estate_development');
+        $blueprint->refresh();
+        $blueprint->loadMissing(
+            'real_estate_development',
+            'real_estate_developments_characteristics'
+        );
+        if ($blueprint->real_estate_developments_characteristics) {
+            foreach ($blueprint->real_estate_developments_characteristics as $realEstateDevelopmentAccessory) {
+                $realEstateDevelopmentAccessory->loadMissing(
+                    'accessory'
+                );
+                if ($realEstateDevelopmentAccessory->accessory) {
+                    $realEstateDevelopmentAccessory->accessory->loadMissing('accessory_categorization');
+                }
+            }
+        }
 
         $data = $blueprint->toArray();
         $data['sync_to'] = 'sys';
@@ -36,7 +50,21 @@ class BlueprintObserver
             return;
         }
 
-        $blueprint->loadMissing('real_estate_development');
+        $blueprint->refresh();
+        $blueprint->loadMissing(
+            'real_estate_development',
+            'real_estate_developments_characteristics'
+        );
+        if ($blueprint->real_estate_developments_characteristics) {
+            foreach ($blueprint->real_estate_developments_characteristics as $realEstateDevelopmentAccessory) {
+                $realEstateDevelopmentAccessory->loadMissing(
+                    'accessory'
+                );
+                if ($realEstateDevelopmentAccessory->accessory) {
+                    $realEstateDevelopmentAccessory->accessory->loadMissing('accessory_categorization');
+                }
+            }
+        }
 
         $data = $blueprint->toArray();
         $data['sync_to'] = 'sys';
