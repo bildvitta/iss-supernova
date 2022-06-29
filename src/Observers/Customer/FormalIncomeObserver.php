@@ -20,6 +20,11 @@ class FormalIncomeObserver
             'occupation',
             'proof_of_income_type',
         );
+        if ($formalIncome->customer) {
+            $formalIncome->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $formalIncome->toArray();
         $data['sync_to'] = 'sys';
 
@@ -44,6 +49,11 @@ class FormalIncomeObserver
             'occupation',
             'proof_of_income_type',
         );
+        if ($formalIncome->customer) {
+            $formalIncome->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $formalIncome->toArray();
         $data['sync_to'] = 'sys';
 

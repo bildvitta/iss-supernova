@@ -21,6 +21,11 @@ class DependentObserver
             'educational_institution',
             'educational_course',
         );
+        if ($dependent->customer) {
+            $dependent->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $dependent->toArray();
         $data['sync_to'] = 'sys';
 
@@ -46,6 +51,11 @@ class DependentObserver
             'educational_institution',
             'educational_course',
         );
+        if ($dependent->customer) {
+            $dependent->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $dependent->toArray();
         $data['sync_to'] = 'sys';
 

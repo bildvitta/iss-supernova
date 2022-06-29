@@ -19,6 +19,11 @@ class FinancialCommitmentObserver
             'customer',
             'financial_commitment',
         );
+        if ($financialCommitment->customer) {
+            $financialCommitment->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $financialCommitment->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class FinancialCommitmentObserver
             'customer',
             'financial_commitment',
         );
+        if ($financialCommitment->customer) {
+            $financialCommitment->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $financialCommitment->toArray();
         $data['sync_to'] = 'sys';
 

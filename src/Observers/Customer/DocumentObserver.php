@@ -19,6 +19,11 @@ class DocumentObserver
             'customer',
             'document_type',
         );
+        if ($document->customer) {
+            $document->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $document->toArray();
         $data['sync_to'] = 'sys';
 
@@ -45,6 +50,11 @@ class DocumentObserver
             'customer',
             'document_type',
         );
+        if ($document->customer) {
+            $document->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $document->toArray();
         $data['sync_to'] = 'sys';
 

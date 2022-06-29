@@ -19,6 +19,11 @@ class HeritagePropertyObserver
             'customer',
             'property_type',
         );
+        if ($heritageProperty->customer) {
+            $heritageProperty->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $heritageProperty->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class HeritagePropertyObserver
             'customer',
             'property_type',
         );
+        if ($heritageProperty->customer) {
+            $heritageProperty->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $heritageProperty->toArray();
         $data['sync_to'] = 'sys';
 

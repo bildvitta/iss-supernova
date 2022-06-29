@@ -18,6 +18,11 @@ class MonthlyFamilyExpenseObserver
         $monthlyFamilyExpense->loadMissing(
             'customer',
         );
+        if ($monthlyFamilyExpense->customer) {
+            $monthlyFamilyExpense->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
 
@@ -40,6 +45,11 @@ class MonthlyFamilyExpenseObserver
         $monthlyFamilyExpense->loadMissing(
             'customer',
         );
+        if ($monthlyFamilyExpense->customer) {
+            $monthlyFamilyExpense->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
 

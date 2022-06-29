@@ -18,6 +18,11 @@ class FgtsAccountObserver
         $fgtsAccount->loadMissing(
             'customer',
         );
+        if ($fgtsAccount->customer) {
+            $fgtsAccount->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $fgtsAccount->toArray();
         $data['sync_to'] = 'sys';
 
@@ -40,6 +45,11 @@ class FgtsAccountObserver
         $fgtsAccount->loadMissing(
             'customer',
         );
+        if ($fgtsAccount->customer) {
+            $fgtsAccount->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $fgtsAccount->toArray();
         $data['sync_to'] = 'sys';
 

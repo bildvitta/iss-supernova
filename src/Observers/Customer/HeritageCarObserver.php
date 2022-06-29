@@ -19,6 +19,11 @@ class HeritageCarObserver
             'customer',
             'car_type',
         );
+        if ($heritageCar->customer) {
+            $heritageCar->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $heritageCar->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class HeritageCarObserver
             'customer',
             'car_type',
         );
+        if ($heritageCar->customer) {
+            $heritageCar->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $heritageCar->toArray();
         $data['sync_to'] = 'sys';
 

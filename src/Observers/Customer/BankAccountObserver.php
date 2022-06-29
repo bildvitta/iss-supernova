@@ -19,6 +19,11 @@ class BankAccountObserver
             'customer',
             'bank',
         );
+        if ($bankAccount->customer) {
+            $bankAccount->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $bankAccount->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class BankAccountObserver
             'customer',
             'bank',
         );
+        if ($bankAccount->customer) {
+            $bankAccount->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $bankAccount->toArray();
         $data['sync_to'] = 'sys';
 

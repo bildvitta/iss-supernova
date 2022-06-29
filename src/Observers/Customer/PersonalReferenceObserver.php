@@ -19,6 +19,11 @@ class PersonalReferenceObserver
             'customer',
             'relation_type',
         );
+        if ($personalReference->customer) {
+            $personalReference->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $personalReference->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class PersonalReferenceObserver
             'customer',
             'relation_type',
         );
+        if ($personalReference->customer) {
+            $personalReference->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $personalReference->toArray();
         $data['sync_to'] = 'sys';
 

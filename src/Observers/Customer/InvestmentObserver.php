@@ -19,6 +19,11 @@ class InvestmentObserver
             'customer',
             'bank',
         );
+        if ($investment->customer) {
+            $investment->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $investment->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class InvestmentObserver
             'customer',
             'bank',
         );
+        if ($investment->customer) {
+            $investment->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $investment->toArray();
         $data['sync_to'] = 'sys';
 

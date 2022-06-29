@@ -19,6 +19,11 @@ class InformalIncomeObserver
             'customer',
             'occupation',
         );
+        if ($informalIncome->customer) {
+            $informalIncome->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $informalIncome->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class InformalIncomeObserver
             'customer',
             'occupation',
         );
+        if ($informalIncome->customer) {
+            $informalIncome->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $informalIncome->toArray();
         $data['sync_to'] = 'sys';
 

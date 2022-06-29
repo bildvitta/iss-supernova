@@ -19,6 +19,11 @@ class CreditCardObserver
             'customer',
             'credit_card_flag',
         );
+        if ($creditCard->customer) {
+            $creditCard->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $creditCard->toArray();
         $data['sync_to'] = 'sys';
 
@@ -42,6 +47,11 @@ class CreditCardObserver
             'customer',
             'credit_card_flag',
         );
+        if ($creditCard->customer) {
+            $creditCard->customer->loadMissing(
+                'related_customer'
+            );
+        }
         $data = $creditCard->toArray();
         $data['sync_to'] = 'sys';
 
