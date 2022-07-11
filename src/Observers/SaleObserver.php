@@ -115,11 +115,18 @@ class SaleObserver
         try {
             $issSupernova = new IssSupernova();
             $response = $issSupernova->sales()->update($data);
-            return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
             throw $exception;
         }
+
+        if ($sale->periodicities) {
+            foreach ($sale->periodicities as $periodicity) {
+                $periodicity->touch();
+            }
+        }
+
+        return $response;
     }
 
     public function deleted($sale)
