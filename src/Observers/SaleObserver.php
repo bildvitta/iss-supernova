@@ -30,7 +30,8 @@ class SaleObserver
             'periodicities',
             'facts',
             'real_estate_agency',
-            'justified_user'
+            'justified_user',
+            'accessories'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -58,6 +59,12 @@ class SaleObserver
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
             throw $exception;
+        }
+
+        if ($sale->accessories) {
+            foreach ($sale->accessories as $saleAccessory) {
+                $saleAccessory->touch();
+            }
         }
 
         if ($sale->periodicities) {
@@ -90,7 +97,8 @@ class SaleObserver
             'periodicities',
             'facts',
             'real_estate_agency',
-            'justified_user'
+            'justified_user',
+            'accessories'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -118,6 +126,12 @@ class SaleObserver
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
             throw $exception;
+        }
+
+        if ($sale->accessories) {
+            foreach ($sale->accessories as $saleAccessory) {
+                $saleAccessory->touch();
+            }
         }
 
         if ($sale->periodicities) {
