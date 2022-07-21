@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova;
 
+use Bildvitta\IssSupernova\Resources\Companies;
 use Bildvitta\IssSupernova\Resources\CustomerBankAccounts;
 use Bildvitta\IssSupernova\Resources\CustomerCreditCards;
 use Bildvitta\IssSupernova\Resources\CustomerDependents;
@@ -216,6 +217,11 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function users()
     {
         return new Users($this);
+    }
+
+    public function companies()
+    {
+        return new Companies($this);
     }
 
     public function sales()
