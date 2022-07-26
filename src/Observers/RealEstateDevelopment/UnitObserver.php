@@ -22,6 +22,11 @@ class UnitObserver
             'mirror_group',
             'mirror_subgroup'
         );
+        if ($unit->typology) {
+            $unit->typology->loadMissing(
+                'blueprints'
+            );
+        }
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
 
@@ -48,6 +53,11 @@ class UnitObserver
             'mirror_group',
             'mirror_subgroup'
         );
+        if ($unit->typology) {
+            $unit->typology->loadMissing(
+                'blueprints'
+            );
+        }
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
 

@@ -18,7 +18,8 @@ class BlueprintObserver
         $blueprint->refresh();
         $blueprint->loadMissing(
             'real_estate_development',
-            'real_estate_developments_characteristics'
+            'real_estate_developments_characteristics',
+            'real_estate_developments_typologies'
         );
         if ($blueprint->real_estate_developments_characteristics) {
             foreach ($blueprint->real_estate_developments_characteristics as $realEstateDevelopmentAccessory) {
@@ -28,6 +29,13 @@ class BlueprintObserver
                 if ($realEstateDevelopmentAccessory->accessory) {
                     $realEstateDevelopmentAccessory->accessory->loadMissing('accessory_categorization');
                 }
+            }
+        }
+        if ($blueprint->real_estate_developments_typologies) {
+            foreach ($blueprint->real_estate_developments_typologies as $typology) {
+                $typology->loadMissing(
+                    'units'
+                );
             }
         }
 
@@ -53,7 +61,8 @@ class BlueprintObserver
         $blueprint->refresh();
         $blueprint->loadMissing(
             'real_estate_development',
-            'real_estate_developments_characteristics'
+            'real_estate_developments_characteristics',
+            'real_estate_developments_typologies'
         );
         if ($blueprint->real_estate_developments_characteristics) {
             foreach ($blueprint->real_estate_developments_characteristics as $realEstateDevelopmentAccessory) {
@@ -63,6 +72,13 @@ class BlueprintObserver
                 if ($realEstateDevelopmentAccessory->accessory) {
                     $realEstateDevelopmentAccessory->accessory->loadMissing('accessory_categorization');
                 }
+            }
+        }
+        if ($blueprint->real_estate_developments_typologies) {
+            foreach ($blueprint->real_estate_developments_typologies as $typology) {
+                $typology->loadMissing(
+                    'units'
+                );
             }
         }
 
