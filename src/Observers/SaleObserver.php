@@ -29,7 +29,7 @@ class SaleObserver
             'buying_options',
             'periodicities',
             'facts',
-            'real_estate_agency',
+            'hub_company_real_estate_agency',
             'justified_user',
             'accessories'
         );
@@ -96,7 +96,7 @@ class SaleObserver
             'buying_options',
             'periodicities',
             'facts',
-            'real_estate_agency',
+            'hub_company_real_estate_agency',
             'justified_user',
             'accessories'
         );
