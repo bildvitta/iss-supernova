@@ -1,6 +1,6 @@
 <?php
 
-namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment\Vendas;
+namespace Bildvitta\IssSupernova\Observers\Vendas;
 
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
