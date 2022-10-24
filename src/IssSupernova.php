@@ -29,6 +29,7 @@ use Bildvitta\IssSupernova\Resources\SaleAccessories;
 use Bildvitta\IssSupernova\Resources\SalePeriodicities;
 use Bildvitta\IssSupernova\Resources\Sales;
 use Bildvitta\IssSupernova\Resources\Users;
+use Bildvitta\IssSupernova\Resources\Vendas;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
@@ -237,5 +238,10 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function saleAccessories()
     {
         return new SaleAccessories($this);
+    }
+
+    public function vendas()
+    {
+        return new Vendas($this);
     }
 }
