@@ -28,6 +28,7 @@ use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
 use Bildvitta\IssSupernova\Resources\SaleAccessories;
 use Bildvitta\IssSupernova\Resources\SalePeriodicities;
 use Bildvitta\IssSupernova\Resources\Sales;
+use Bildvitta\IssSupernova\Resources\SYS;
 use Bildvitta\IssSupernova\Resources\Users;
 use Bildvitta\IssSupernova\Resources\Vendas;
 use Illuminate\Http\Client\Factory as HttpClient;
@@ -243,5 +244,10 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function vendas()
     {
         return new Vendas($this);
+    }
+
+    public function sys()
+    {
+        return new SYS($this);
     }
 }
