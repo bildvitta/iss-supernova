@@ -21,7 +21,8 @@ class HeritagePropertyObserver
         );
         if ($heritageProperty->customer) {
             $heritageProperty->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $heritageProperty->toArray();
@@ -49,7 +50,8 @@ class HeritagePropertyObserver
         );
         if ($heritageProperty->customer) {
             $heritageProperty->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $heritageProperty->toArray();

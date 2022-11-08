@@ -20,7 +20,8 @@ class MonthlyFamilyExpenseObserver
         );
         if ($monthlyFamilyExpense->customer) {
             $monthlyFamilyExpense->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $monthlyFamilyExpense->toArray();
@@ -47,7 +48,8 @@ class MonthlyFamilyExpenseObserver
         );
         if ($monthlyFamilyExpense->customer) {
             $monthlyFamilyExpense->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $monthlyFamilyExpense->toArray();

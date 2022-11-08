@@ -21,7 +21,8 @@ class PersonalReferenceObserver
         );
         if ($personalReference->customer) {
             $personalReference->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $personalReference->toArray();
@@ -49,7 +50,8 @@ class PersonalReferenceObserver
         );
         if ($personalReference->customer) {
             $personalReference->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $personalReference->toArray();

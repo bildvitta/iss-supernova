@@ -22,7 +22,8 @@ class FormalIncomeObserver
         );
         if ($formalIncome->customer) {
             $formalIncome->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $formalIncome->toArray();
@@ -51,7 +52,8 @@ class FormalIncomeObserver
         );
         if ($formalIncome->customer) {
             $formalIncome->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $formalIncome->toArray();

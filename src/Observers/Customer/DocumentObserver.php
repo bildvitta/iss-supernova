@@ -21,7 +21,8 @@ class DocumentObserver
         );
         if ($document->customer) {
             $document->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $document->toArray();
@@ -52,7 +53,8 @@ class DocumentObserver
         );
         if ($document->customer) {
             $document->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $document->toArray();

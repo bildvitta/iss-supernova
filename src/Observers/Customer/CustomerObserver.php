@@ -31,11 +31,11 @@ class CustomerObserver
             'occupation_type',
             'user',
             'funnel',
-            'related_customer',
-            'related_customers',
             'country',
             'user',
             'educational_course',
+            'bonds',
+            'bonds_from',
         );
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
@@ -72,11 +72,11 @@ class CustomerObserver
             'occupation_type',
             'user',
             'funnel',
-            'related_customer',
-            'related_customers',
             'country',
             'user',
             'educational_course',
+            'bonds',
+            'bonds_from',
         );
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';

@@ -21,7 +21,8 @@ class InvestmentObserver
         );
         if ($investment->customer) {
             $investment->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $investment->toArray();
@@ -49,7 +50,8 @@ class InvestmentObserver
         );
         if ($investment->customer) {
             $investment->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $investment->toArray();
