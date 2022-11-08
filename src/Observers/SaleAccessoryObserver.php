@@ -26,6 +26,11 @@ class SaleAccessoryObserver
                 'unit'
             );
         }
+        if ($saleAccessory->accessory) {
+            $saleAccessory->accessory->loadMissing(
+                'accessory',
+            );
+        }
         $data = $saleAccessory->toArray();
         $data['sync_to'] = 'sys';
 
@@ -54,6 +59,11 @@ class SaleAccessoryObserver
             $saleAccessory->sale->loadMissing(
                 'blueprint',
                 'unit'
+            );
+        }
+        if ($saleAccessory->accessory) {
+            $saleAccessory->accessory->loadMissing(
+                'accessory',
             );
         }
         $data = $saleAccessory->toArray();
