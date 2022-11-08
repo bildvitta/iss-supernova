@@ -21,7 +21,8 @@ class InformalIncomeObserver
         );
         if ($informalIncome->customer) {
             $informalIncome->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $informalIncome->toArray();
@@ -49,7 +50,8 @@ class InformalIncomeObserver
         );
         if ($informalIncome->customer) {
             $informalIncome->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $informalIncome->toArray();

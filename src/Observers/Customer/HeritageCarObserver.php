@@ -21,7 +21,8 @@ class HeritageCarObserver
         );
         if ($heritageCar->customer) {
             $heritageCar->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $heritageCar->toArray();
@@ -49,7 +50,8 @@ class HeritageCarObserver
         );
         if ($heritageCar->customer) {
             $heritageCar->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $heritageCar->toArray();

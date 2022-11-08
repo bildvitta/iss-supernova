@@ -21,7 +21,8 @@ class BankAccountObserver
         );
         if ($bankAccount->customer) {
             $bankAccount->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $bankAccount->toArray();
@@ -49,7 +50,8 @@ class BankAccountObserver
         );
         if ($bankAccount->customer) {
             $bankAccount->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $bankAccount->toArray();

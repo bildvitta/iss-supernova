@@ -23,7 +23,8 @@ class DependentObserver
         );
         if ($dependent->customer) {
             $dependent->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $dependent->toArray();
@@ -53,7 +54,8 @@ class DependentObserver
         );
         if ($dependent->customer) {
             $dependent->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $dependent->toArray();

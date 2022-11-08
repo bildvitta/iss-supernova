@@ -20,7 +20,8 @@ class FgtsAccountObserver
         );
         if ($fgtsAccount->customer) {
             $fgtsAccount->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $fgtsAccount->toArray();
@@ -47,7 +48,8 @@ class FgtsAccountObserver
         );
         if ($fgtsAccount->customer) {
             $fgtsAccount->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $fgtsAccount->toArray();

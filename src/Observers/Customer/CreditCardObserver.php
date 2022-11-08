@@ -21,7 +21,8 @@ class CreditCardObserver
         );
         if ($creditCard->customer) {
             $creditCard->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $creditCard->toArray();
@@ -49,7 +50,8 @@ class CreditCardObserver
         );
         if ($creditCard->customer) {
             $creditCard->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $creditCard->toArray();

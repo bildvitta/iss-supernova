@@ -21,7 +21,8 @@ class FinancialCommitmentObserver
         );
         if ($financialCommitment->customer) {
             $financialCommitment->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $financialCommitment->toArray();
@@ -49,7 +50,8 @@ class FinancialCommitmentObserver
         );
         if ($financialCommitment->customer) {
             $financialCommitment->customer->loadMissing(
-                'related_customer'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $financialCommitment->toArray();
