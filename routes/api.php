@@ -10,7 +10,7 @@ Route::prefix('api')->middleware('api')->group(function () {
             $modelName = $request->input('model');
             $id = $request->input('id');
 
-            if ($model = $modelName::find($id)) {
+            if ($model = $modelName::withTrashed()->find($id)) {
                 event($event, $model);
             }
         } catch (\Throwable $exception) {
