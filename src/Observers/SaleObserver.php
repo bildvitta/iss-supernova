@@ -46,8 +46,8 @@ class SaleObserver
         }
         if ($sale->customer) {
             $sale->customer->loadMissing(
-                'related_customer',
-                'related_customers'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $sale->toArray();
@@ -113,8 +113,8 @@ class SaleObserver
         }
         if ($sale->customer) {
             $sale->customer->loadMissing(
-                'related_customer',
-                'related_customers'
+                'bonds',
+                'bonds_from',
             );
         }
         $data = $sale->toArray();
