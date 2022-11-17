@@ -27,6 +27,10 @@ class CompanyObserver
         $data = $company->toArray();
         $data['sync_to'] = 'sys';
 
+        if (!in_array($data['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
+
         try {
             $issSupernova = new IssSupernova();
             $response = $issSupernova->companies()->create($data);
@@ -55,6 +59,10 @@ class CompanyObserver
         }
         $data = $company->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

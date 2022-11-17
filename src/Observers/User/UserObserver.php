@@ -24,6 +24,10 @@ class UserObserver
         $data['sync_to'] = 'sys';
         $data['permissions'] = $user->getAllPermissions();
 
+        if (!in_array($data['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
+
         //Supervisor
         $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
 
@@ -56,6 +60,10 @@ class UserObserver
         $data = $user->toArray();
         $data['sync_to'] = 'sys';
         $data['permissions'] = $user->getAllPermissions();
+
+        if (!in_array($data['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         //Supervisor
         $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
