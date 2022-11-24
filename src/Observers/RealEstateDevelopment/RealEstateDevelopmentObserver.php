@@ -23,6 +23,10 @@ class RealEstateDevelopmentObserver
         $data = $realEstateDeveloptment->toArray();
         $data['sync_to'] = 'sys';
 
+        if (!in_array($data['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
+
         try {
             $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopments()->create($data);
@@ -46,6 +50,10 @@ class RealEstateDevelopmentObserver
         );
         $data = $realEstateDeveloptment->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

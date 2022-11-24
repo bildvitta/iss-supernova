@@ -14,10 +14,20 @@ class ParameterObserver
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
-        
+
         $parameter->loadMissing('realEstateDevelopment');
+        if ($parameter->realEstateDevelopment) {
+            $parameter->realEstateDevelopment->loadMissing(
+                'hub_company'
+            );
+        }
+
         $data = $parameter->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -34,10 +44,20 @@ class ParameterObserver
         if (!Config::get('iss-supernova.base_uri')) {
             return;
         }
-        
+
         $parameter->loadMissing('realEstateDevelopment');
+        if ($parameter->realEstateDevelopment) {
+            $parameter->realEstateDevelopment->loadMissing(
+                'hub_company'
+            );
+        }
+
         $data = $parameter->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

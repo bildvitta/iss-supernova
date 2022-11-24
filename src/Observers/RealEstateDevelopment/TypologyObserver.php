@@ -16,10 +16,18 @@ class TypologyObserver
         }
 
         $typology->loadMissing('realEstateDevelopment');
-        $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();
-        $typology->realEstateDevelopment->hub_company = $typology->realEstateDevelopment->hub_company;
+        if ($typology->realEstateDevelopment) {
+            $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();
+            $typology->realEstateDevelopment->loadMissing(
+                'hub_company'
+            );
+        }
         $data = $typology->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -38,10 +46,18 @@ class TypologyObserver
         }
 
         $typology->loadMissing('realEstateDevelopment');
-        $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();
-        $typology->realEstateDevelopment->hub_company = $typology->realEstateDevelopment->hub_company;
+        if ($typology->realEstateDevelopment) {
+            $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();
+            $typology->realEstateDevelopment->loadMissing(
+                'hub_company'
+            );
+        }
         $data = $typology->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

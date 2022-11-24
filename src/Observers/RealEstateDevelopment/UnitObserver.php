@@ -27,8 +27,17 @@ class UnitObserver
                 'blueprints'
             );
         }
+        if ($unit->realEstateDevelopment) {
+            $unit->realEstateDevelopment->loadMissing(
+                'hub_company'
+            );
+        }
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -58,8 +67,17 @@ class UnitObserver
                 'blueprints'
             );
         }
+        if ($unit->realEstateDevelopment) {
+            $unit->realEstateDevelopment->loadMissing(
+                'hub_company'
+            );
+        }
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
