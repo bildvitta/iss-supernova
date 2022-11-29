@@ -23,13 +23,24 @@ class DocumentObserver
             $document->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($document->customer->user) {
+                $document->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
         $data = $document->toArray();
         $data['sync_to'] = 'sys';
 
         //Passo o campo file novamente pois Document::getFileAttribute() gera uma url temporária de 5 minutos do S3
         $data['file'] = $document->getAttributes()['file'];
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -55,13 +66,25 @@ class DocumentObserver
             $document->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($document->customer->user) {
+                $document->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $document->toArray();
         $data['sync_to'] = 'sys';
 
         //Passo o campo file novamente pois Document::getFileAttribute() gera uma url temporária de 5 minutos do S3
         $data['file'] = $document->getAttributes()['file'];
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

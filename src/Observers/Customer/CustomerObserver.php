@@ -37,8 +37,18 @@ class CustomerObserver
             'bonds',
             'bonds_from',
         );
+        if ($customer->user) {
+            $customer->user->loadMissing(
+                'company'
+            );
+        }
+
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -78,8 +88,18 @@ class CustomerObserver
             'bonds',
             'bonds_from',
         );
+        if ($customer->user) {
+            $customer->user->loadMissing(
+                'company'
+            );
+        }
+
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

@@ -23,10 +23,22 @@ class HeritageCarObserver
             $heritageCar->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($heritageCar->customer->user) {
+                $heritageCar->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $heritageCar->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -52,10 +64,22 @@ class HeritageCarObserver
             $heritageCar->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($heritageCar->customer->user) {
+                $heritageCar->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $heritageCar->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

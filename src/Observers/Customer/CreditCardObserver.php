@@ -23,10 +23,22 @@ class CreditCardObserver
             $creditCard->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($creditCard->customer->user) {
+                $creditCard->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $creditCard->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -52,10 +64,22 @@ class CreditCardObserver
             $creditCard->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($creditCard->customer->user) {
+                $creditCard->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $creditCard->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

@@ -22,10 +22,22 @@ class MonthlyFamilyExpenseObserver
             $monthlyFamilyExpense->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($monthlyFamilyExpense->customer->user) {
+                $monthlyFamilyExpense->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -50,10 +62,22 @@ class MonthlyFamilyExpenseObserver
             $monthlyFamilyExpense->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($monthlyFamilyExpense->customer->user) {
+                $monthlyFamilyExpense->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

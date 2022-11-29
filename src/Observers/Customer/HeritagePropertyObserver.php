@@ -23,10 +23,22 @@ class HeritagePropertyObserver
             $heritageProperty->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($heritageProperty->customer->user) {
+                $heritageProperty->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $heritageProperty->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -52,10 +64,22 @@ class HeritagePropertyObserver
             $heritageProperty->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($heritageProperty->customer->user) {
+                $heritageProperty->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $heritageProperty->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

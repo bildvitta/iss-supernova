@@ -24,10 +24,22 @@ class FormalIncomeObserver
             $formalIncome->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($formalIncome->customer->user) {
+                $formalIncome->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $formalIncome->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -54,10 +66,22 @@ class FormalIncomeObserver
             $formalIncome->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($formalIncome->customer->user) {
+                $formalIncome->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $formalIncome->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

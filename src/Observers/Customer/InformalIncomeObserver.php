@@ -23,10 +23,22 @@ class InformalIncomeObserver
             $informalIncome->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($informalIncome->customer->user) {
+                $informalIncome->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $informalIncome->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -52,10 +64,22 @@ class InformalIncomeObserver
             $informalIncome->customer->loadMissing(
                 'bonds',
                 'bonds_from',
+                'user',
             );
+
+            if ($informalIncome->customer->user) {
+                $informalIncome->customer->user->loadMissing(
+                    'company'
+                );
+            }
         }
+
         $data = $informalIncome->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
