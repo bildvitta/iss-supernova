@@ -31,7 +31,8 @@ class SaleObserver
             'facts',
             'hub_company_real_estate_agency',
             'justified_user',
-            'accessories'
+            'accessories',
+            'real_estate_development'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -50,8 +51,19 @@ class SaleObserver
                 'bonds_from',
             );
         }
+
+        if ($sale->real_estate_development) {
+            $sale->real_estate_development->loadMissing(
+                'hub_company'
+            );
+        }
+
         $data = $sale->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -98,7 +110,8 @@ class SaleObserver
             'facts',
             'hub_company_real_estate_agency',
             'justified_user',
-            'accessories'
+            'accessories',
+            'real_estate_development'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -117,8 +130,18 @@ class SaleObserver
                 'bonds_from',
             );
         }
+        if ($sale->real_estate_development) {
+            $sale->real_estate_development->loadMissing(
+                'hub_company'
+            );
+        }
+
         $data = $sale->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

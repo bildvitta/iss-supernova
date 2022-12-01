@@ -16,11 +16,21 @@ class UnitObserver
         }
 
         $unit->loadMissing(
-            'sale_step'
+            'sale_step',
+            'product'
         );
+        if ($unit->product) {
+            $unit->product->loadMissing(
+                'hub_company'
+            );
+        }
 
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['product']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();

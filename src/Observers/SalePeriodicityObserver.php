@@ -18,8 +18,24 @@ class SalePeriodicityObserver
         $salePeriodicity->loadMissing(
             'sale'
         );
+        if ($salePeriodicity->sale) {
+            $salePeriodicity->sale->loadMissing(
+                'real_estate_development'
+            );
+
+            if ($salePeriodicity->sale->real_estate_development) {
+                $salePeriodicity->sale->real_estate_development->loadMissing(
+                    'hub_company'
+                );
+            }
+        }
+
         $data = $salePeriodicity->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
@@ -40,8 +56,24 @@ class SalePeriodicityObserver
         $salePeriodicity->loadMissing(
             'sale'
         );
+        if ($salePeriodicity->sale) {
+            $salePeriodicity->sale->loadMissing(
+                'real_estate_development'
+            );
+
+            if ($salePeriodicity->sale->real_estate_development) {
+                $salePeriodicity->sale->real_estate_development->loadMissing(
+                    'hub_company'
+                );
+            }
+        }
+
         $data = $salePeriodicity->toArray();
         $data['sync_to'] = 'sys';
+
+        if (!in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+            return;
+        }
 
         try {
             $issSupernova = new IssSupernova();
