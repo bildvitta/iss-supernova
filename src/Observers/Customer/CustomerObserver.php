@@ -46,6 +46,8 @@ class CustomerObserver
             );
         }
 
+        $this->triggerSubObjects($customer);
+
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
 
@@ -100,6 +102,8 @@ class CustomerObserver
             );
         }
 
+        $this->triggerSubObjects($customer);
+
         $data = $customer->toArray();
         $data['sync_to'] = 'sys';
 
@@ -120,5 +124,37 @@ class CustomerObserver
     public function deleted($customer)
     {
         $this->updated($customer);
+    }
+
+    private function triggerSubObjects($customer) {
+        if ($customer->is_incomplete_registration) {
+            return;
+        }
+
+        $relashionships = [
+            'bank_accounts',
+            'credit_cards',
+            'dependents',
+            'fgts_accounts',
+            'financial_commitments',
+            'formal_incomes',
+            'heritage_cars',
+            'heritage_properties',
+            'cars',
+            'properties',
+            'informal_incomes',
+            'investments',
+            'monthly_family_expenses',
+            'personal_references',
+            'documents',
+        ];
+
+        foreach ($relashionships as $relashionship) {
+            if ($customer->$relashionship) {
+                foreach ($customer->$relashionship as $relashionshipObject) {
+                    event('eloquent.updated: ' . get_class($relashionshipObject), $relashionshipObject);
+                }
+            }
+        }
     }
 }
