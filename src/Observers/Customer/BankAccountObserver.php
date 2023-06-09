@@ -56,6 +56,8 @@ class BankAccountObserver
             return;
         }
 
+        $bankAccount->refresh();
+
         $bankAccount->loadMissing(
             'customer',
             'bank',

@@ -55,6 +55,8 @@ class MonthlyFamilyExpenseObserver
             return;
         }
 
+        $monthlyFamilyExpense->refresh();
+
         $monthlyFamilyExpense->loadMissing(
             'customer',
         );

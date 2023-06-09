@@ -94,6 +94,8 @@ class SaleObserver
             return;
         }
 
+        $sale->refresh();
+
         $sale->loadMissing(
             'customer',
             'customers',

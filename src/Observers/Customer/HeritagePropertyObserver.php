@@ -56,6 +56,8 @@ class HeritagePropertyObserver
             return;
         }
 
+        $heritageProperty->refresh();
+
         $heritageProperty->loadMissing(
             'customer',
             'property_type',

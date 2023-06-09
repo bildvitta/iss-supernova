@@ -56,6 +56,8 @@ class InformalIncomeObserver
             return;
         }
 
+        $informalIncome->refresh();
+
         $informalIncome->loadMissing(
             'customer',
             'occupation',

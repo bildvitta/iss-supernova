@@ -56,6 +56,8 @@ class PersonalReferenceObserver
             return;
         }
 
+        $personalReference->refresh();
+
         $personalReference->loadMissing(
             'customer',
             'relation_type',

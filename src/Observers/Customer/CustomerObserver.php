@@ -71,6 +71,8 @@ class CustomerObserver
             return;
         }
 
+        $customer->refresh();
+
         $customer->loadMissing(
             'channel',
             'subchannel',

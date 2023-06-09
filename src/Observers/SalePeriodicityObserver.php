@@ -53,6 +53,8 @@ class SalePeriodicityObserver
             return;
         }
 
+        $salePeriodicity->refresh();
+
         $salePeriodicity->loadMissing(
             'sale'
         );

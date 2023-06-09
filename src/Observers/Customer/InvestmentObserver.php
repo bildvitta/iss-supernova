@@ -56,6 +56,8 @@ class InvestmentObserver
             return;
         }
 
+        $investment->refresh();
+
         $investment->loadMissing(
             'customer',
             'bank',

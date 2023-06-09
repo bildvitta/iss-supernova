@@ -68,6 +68,7 @@ class BlueprintObserver
         }
 
         $blueprint->refresh();
+        
         $blueprint->loadMissing(
             'real_estate_development',
             'real_estate_developments_characteristics',

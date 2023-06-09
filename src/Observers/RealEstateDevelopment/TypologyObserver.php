@@ -45,6 +45,8 @@ class TypologyObserver
             return;
         }
 
+        $typology->refresh();
+
         $typology->loadMissing('realEstateDevelopment');
         if ($typology->realEstateDevelopment) {
             $typology->realEstateDevelopment->last_parameter = $typology->realEstateDevelopment->last_parameter();

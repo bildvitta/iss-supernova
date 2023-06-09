@@ -53,6 +53,8 @@ class UserObserver
             return;
         }
 
+        $user->refresh();
+
         $user->loadMissing(
             'company',
             'groups',

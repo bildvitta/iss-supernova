@@ -56,6 +56,8 @@ class FinancialCommitmentObserver
             return;
         }
 
+        $financialCommitment->refresh();
+
         $financialCommitment->loadMissing(
             'customer',
             'financial_commitment',

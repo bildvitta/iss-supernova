@@ -56,6 +56,8 @@ class HeritageCarObserver
             return;
         }
 
+        $heritageCar->refresh();
+
         $heritageCar->loadMissing(
             'customer',
             'car_type',

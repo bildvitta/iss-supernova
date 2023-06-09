@@ -43,6 +43,8 @@ class RealEstateDevelopmentObserver
             return;
         }
 
+        $realEstateDeveloptment->refresh();
+
         $realEstateDeveloptment->loadMissing(
             'hub_company',
             'real_estate_development_type',

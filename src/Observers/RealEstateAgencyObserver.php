@@ -34,6 +34,8 @@ class RealEstateAgencyObserver
             return;
         }
 
+        $realEstateAgency->refresh();
+
         $data = $realEstateAgency->toArray();
         $data['sync_to'] = 'sys';
 

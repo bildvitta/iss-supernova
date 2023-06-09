@@ -55,6 +55,8 @@ class UnitObserver
             return;
         }
 
+        $unit->refresh();
+
         $unit->loadMissing(
             'realEstateDevelopment',
             'typology',

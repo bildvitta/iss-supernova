@@ -61,6 +61,8 @@ class SaleAccessoryObserver
             return;
         }
 
+        $saleAccessory->refresh();
+
         $saleAccessory->loadMissing(
             'category',
             'accessory',

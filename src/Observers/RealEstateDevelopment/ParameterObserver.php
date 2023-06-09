@@ -45,6 +45,8 @@ class ParameterObserver
             return;
         }
 
+        $parameter->refresh();
+
         $parameter->loadMissing('realEstateDevelopment');
         if ($parameter->realEstateDevelopment) {
             $parameter->realEstateDevelopment->loadMissing(

@@ -57,6 +57,8 @@ class FormalIncomeObserver
             return;
         }
 
+        $formalIncome->refresh();
+
         $formalIncome->loadMissing(
             'customer',
             'occupation',

@@ -55,6 +55,8 @@ class FgtsAccountObserver
             return;
         }
 
+        $fgtsAccount->refresh();
+
         $fgtsAccount->loadMissing(
             'customer',
         );

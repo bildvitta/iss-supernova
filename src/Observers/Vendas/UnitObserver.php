@@ -15,6 +15,8 @@ class UnitObserver
             return;
         }
 
+        $unit->refresh();
+
         $unit->loadMissing(
             'sale_step',
             'product'

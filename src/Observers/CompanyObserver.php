@@ -48,6 +48,8 @@ class CompanyObserver
             return;
         }
 
+        $company->refresh();
+
         $company->loadMissing(
             'domains',
             'main_company'

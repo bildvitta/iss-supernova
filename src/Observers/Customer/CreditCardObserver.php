@@ -56,6 +56,8 @@ class CreditCardObserver
             return;
         }
 
+        $creditCard->refresh();
+
         $creditCard->loadMissing(
             'customer',
             'credit_card_flag',

@@ -52,6 +52,8 @@ class AccessoryObserver
             return;
         }
 
+        $accessory->refresh();
+
         $accessory->loadMissing(
             'real_estate_development',
             'accessory',

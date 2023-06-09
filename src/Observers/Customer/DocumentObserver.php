@@ -58,6 +58,8 @@ class DocumentObserver
             return;
         }
 
+        $document->refresh();
+
         $document->loadMissing(
             'customer',
             'document_type',

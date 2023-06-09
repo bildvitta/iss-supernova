@@ -58,6 +58,8 @@ class DependentObserver
             return;
         }
 
+        $dependent->refresh();
+
         $dependent->loadMissing(
             'customer',
             'dependent_type',
