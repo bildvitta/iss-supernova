@@ -19,7 +19,9 @@ class UnitObserver
 
         $unit->loadMissing(
             'sale_step',
-            'product'
+            'product',
+            'block_user',
+            'block_reason',
         );
         if ($unit->product) {
             $unit->product->loadMissing(
