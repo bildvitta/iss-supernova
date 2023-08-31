@@ -5,7 +5,7 @@ namespace Bildvitta\IssSupernova\Resources;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Http\Client\Response;
 
-class Cicaq
+class Sicaq
 {
     /**
      * @var IssSupernova
@@ -35,7 +35,7 @@ class Cicaq
         ];
 
         return $this->issSupernova->request->get(
-            '/cicaq/periodicities',
+            '/sicaq/periodicities',
             $data
         );
     }
