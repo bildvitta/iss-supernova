@@ -4,7 +4,7 @@ namespace Bildvitta\IssSupernova\Observers\User;
 
 use App\Models\User;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
@@ -29,13 +29,56 @@ class UserObserver
         }
 
         //Supervisor
-        $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
+        $data['supervisor_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            //Usuário que tenha cargo de Supervisor
+            $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
 
+            $query->where(function ($query) use ($user) {
+                //Que o user passado seja corretor abaixo desse supervisor
+                $query->whereHas('children_positions', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id'));
+                    $query->whereHas('user', function ($query) use ($user) {
+                        $query->where('id', $user->id);
+                    });
+                });
+                //OU que o user passado seja gerente acima desse supervisor
+                $query->orWhereHas('parent_position', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
+                    $query->whereHas('user', function ($query) use ($user) {
+                        $query->where('id', $user->id);
+                    });
+                });
+            });
+        })
+        ->first(['uuid'])?->uuid;
+    
         //Gerente
-        $data['manager_uuid'] = $data['supervisor_uuid'] ? $this->getUserUuidByPermission('manager.supervisors.' . $data['supervisor_uuid']) : null;
-        if (!$data['manager_uuid']) {
-            $data['manager_uuid'] = $this->getUserUuidByPermission('manager.supervisors.' . $user->uuid);
-        }
+        $data['manager_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            //Usuário que tenha cargo de Gerente
+            $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
+
+            $query->where(function ($query) use ($user) {
+                //Que o user passado seja supervisor abaixo desse gerente
+                $query->whereHas('children_positions', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
+                    $query->whereHas('user', function ($query) use ($user) {
+                        $query->where('id', $user->id);
+                    });
+                });
+                //OU que o user passado seja corretor abaixo de algum supervisor abaixo desse gerente
+                $query->orWhereHas('children_positions', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
+
+                    $query->whereHas('children_positions', function ($query) use ($user) {
+                        $query->whereIn('position_id', self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id'));
+                        $query->whereHas('user', function ($query) use ($user) {
+                            $query->where('id', $user->id);
+                        });
+                    });
+                });
+            });
+        })
+        ->first(['uuid'])?->uuid;
 
         try {
             $issSupernova = new IssSupernova('no-token');
@@ -68,13 +111,56 @@ class UserObserver
         }
 
         //Supervisor
-        $data['supervisor_uuid'] = $this->getUserUuidByPermission('supervisor.brokers.' . $user->uuid);
+        $data['supervisor_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            //Usuário que tenha cargo de Supervisor
+            $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
 
+            $query->where(function ($query) use ($user) {
+                //Que o user passado seja corretor abaixo desse supervisor
+                $query->whereHas('children_positions', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id'));
+                    $query->whereHas('user', function ($query) use ($user) {
+                        $query->where('id', $user->id);
+                    });
+                });
+                //OU que o user passado seja gerente acima desse supervisor
+                $query->orWhereHas('parent_position', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
+                    $query->whereHas('user', function ($query) use ($user) {
+                        $query->where('id', $user->id);
+                    });
+                });
+            });
+        })
+        ->first(['uuid'])?->uuid;
+    
         //Gerente
-        $data['manager_uuid'] = $data['supervisor_uuid'] ? $this->getUserUuidByPermission('manager.supervisors.' . $data['supervisor_uuid']) : null;
-        if (!$data['manager_uuid']) {
-            $data['manager_uuid'] = $this->getUserUuidByPermission('manager.supervisors.' . $user->uuid);
-        }
+        $data['manager_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            //Usuário que tenha cargo de Gerente
+            $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
+
+            $query->where(function ($query) use ($user) {
+                //Que o user passado seja supervisor abaixo desse gerente
+                $query->whereHas('children_positions', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
+                    $query->whereHas('user', function ($query) use ($user) {
+                        $query->where('id', $user->id);
+                    });
+                });
+                //OU que o user passado seja corretor abaixo de algum supervisor abaixo desse gerente
+                $query->orWhereHas('children_positions', function ($query) use ($user) {
+                    $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
+
+                    $query->whereHas('children_positions', function ($query) use ($user) {
+                        $query->whereIn('position_id', self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id'));
+                        $query->whereHas('user', function ($query) use ($user) {
+                            $query->where('id', $user->id);
+                        });
+                    });
+                });
+            });
+        })
+        ->first(['uuid'])?->uuid;
 
         try {
             $issSupernova = new IssSupernova('no-token');
@@ -91,33 +177,48 @@ class UserObserver
         $this->updated($user);
     }
 
-    protected function getUserUuidByPermission($permission, $projectSlug='modular') {
-        $permission = is_array($permission) ? $permission : [$permission];
-        $user = User::where(function ($query) use ($permission, $projectSlug) {
-            $query->whereHas('groups', function ($query) use ($permission, $projectSlug) {
-                $query->whereHas('permissions', function ($query) use ($permission, $projectSlug) {
-                    $query->whereIn('name', $permission);
+    protected static function getManagerPositionsFromCompany(int $companyId): Collection
+    {
+        if (!$mainCompany = config('hub.model_company')::find($companyId)) {
+            return collect();
+        }
 
-                    $query->whereHas('project', function ($query) use ($projectSlug) {
-                        $query->where('slug', $projectSlug);
-                    });
-                });
-            })->orWhereHas('roles', function ($query) use ($permission, $projectSlug) {
-                $query->whereHas('permissions', function ($query) use ($permission, $projectSlug) {
-                    $query->whereIn('name', $permission);
+        while($mainCompany->main_company_id) {
+            $mainCompany = $mainCompany->main_company;
+        }
 
-                    $query->whereHas('project', function ($query) use ($projectSlug) {
-                        $query->where('slug', $projectSlug);
-                    });
-                });
-            })->orWhereHas('permissions', function ($query) use ($permission, $projectSlug) {
-                $query->whereIn('name', $permission);
+        return config('hub.model_position')::where('company_id', $mainCompany->id)
+            ->whereNull('parent_position_id')
+            ->get();
+    }
 
-                $query->whereHas('project', function ($query) use ($projectSlug) {
-                    $query->where('slug', $projectSlug);
-                });
-            });
-        })->first('uuid');
-        return $user ? $user->uuid : null;
+    protected static function getSupervisorPositionsFromCompany(int $companyId): Collection
+    {
+        if (!$mainCompany = config('hub.model_company')::find($companyId)) {
+            return collect();
+        }
+
+        while($mainCompany->main_company_id) {
+            $mainCompany = $mainCompany->main_company;
+        }
+
+        return config('hub.model_position')::where('company_id', $mainCompany->id)
+            ->whereIn('parent_position_id', self::getManagerPositionsFromCompany($companyId)->pluck('id'))
+            ->get();
+    }
+
+    protected static function getRealEstateBrokerPositionsFromCompany(int $companyId)
+    {
+        if (!$mainCompany = config('hub.model_company')::find($companyId)) {
+            return collect();
+        }
+
+        while($mainCompany->main_company_id) {
+            $mainCompany = $mainCompany->main_company;
+        }
+
+        return config('hub.model_position')::where('company_id', $mainCompany->id)
+            ->whereIn('parent_position_id', self::getSupervisorPositionsFromCompany($companyId)->pluck('id'))
+            ->get();
     }
 }
