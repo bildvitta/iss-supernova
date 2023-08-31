@@ -80,6 +80,18 @@ class UserObserver
         })
         ->first(['uuid'])?->uuid;
 
+        $data['is_real_estate_broker'] = $user->user_companies->contains(function ($userCompany) use ($user) {
+            return self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
+        });
+
+        $data['is_supervisor'] = $user->user_companies->contains(function ($userCompany) use ($user) {
+            return self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
+        });
+
+        $data['is_manager'] = $user->user_companies->contains(function ($userCompany) use ($user) {
+            return self::getManagerPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
+        });
+
         try {
             $issSupernova = new IssSupernova('no-token');
             $response = $issSupernova->users()->create($data);
@@ -161,6 +173,18 @@ class UserObserver
             });
         })
         ->first(['uuid'])?->uuid;
+
+        $data['is_real_estate_broker'] = $user->user_companies->contains(function ($userCompany) use ($user) {
+            return self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
+        });
+
+        $data['is_supervisor'] = $user->user_companies->contains(function ($userCompany) use ($user) {
+            return self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
+        });
+
+        $data['is_manager'] = $user->user_companies->contains(function ($userCompany) use ($user) {
+            return self::getManagerPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
+        });
 
         try {
             $issSupernova = new IssSupernova('no-token');
