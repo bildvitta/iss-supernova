@@ -30,6 +30,8 @@ class UserObserver
 
         //Supervisor
         $data['supervisor_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            $query->where('company_id', $user->company_id);
+
             //Usuário que tenha cargo de Supervisor
             $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
 
@@ -54,6 +56,8 @@ class UserObserver
     
         //Gerente
         $data['manager_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            $query->where('company_id', $user->company_id);
+            
             //Usuário que tenha cargo de Gerente
             $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
 
@@ -124,6 +128,8 @@ class UserObserver
 
         //Supervisor
         $data['supervisor_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            $query->where('company_id', $user->company_id);
+
             //Usuário que tenha cargo de Supervisor
             $query->whereIn('position_id', self::getSupervisorPositionsFromCompany($user->company_id)->pluck('id'));
 
@@ -148,6 +154,8 @@ class UserObserver
     
         //Gerente
         $data['manager_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
+            $query->where('company_id', $user->company_id);
+
             //Usuário que tenha cargo de Gerente
             $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
 
