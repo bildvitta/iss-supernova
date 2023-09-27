@@ -18,7 +18,7 @@ class UnitObserver
         $unit->loadMissing(
             'realEstateDevelopment',
             'typology',
-            'real_estate_developments_blueprints',
+            'blueprint',
             'mirror_group',
             'mirror_subgroup'
         );
@@ -60,7 +60,7 @@ class UnitObserver
         $unit->loadMissing(
             'realEstateDevelopment',
             'typology',
-            'real_estate_developments_blueprints',
+            'blueprint',
             'mirror_group',
             'mirror_subgroup'
         );
