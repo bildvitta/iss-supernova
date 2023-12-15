@@ -73,7 +73,6 @@ class BlueprintObserver
             'real_estate_development',
             'real_estate_developments_characteristics',
             'real_estate_developments_typologies',
-            'real_estate_developments_blueprint_images',
         );
         if ($blueprint->real_estate_developments_characteristics) {
             foreach ($blueprint->real_estate_developments_characteristics as $realEstateDevelopmentAccessory) {
@@ -99,12 +98,6 @@ class BlueprintObserver
         }
 
         $data = $blueprint->toArray();
-
-        foreach($data['real_estate_developments_blueprint_images'] as $index => $blueprintImage) {
-            if (!empty($blueprintImage['image'])) {
-                $data['real_estate_developments_blueprint_images'][$index]['image'] = explode('?', $blueprintImage['image'])[0];
-            }
-        }
 
         $data['sync_to'] = 'sys';
 
