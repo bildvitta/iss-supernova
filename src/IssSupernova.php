@@ -23,6 +23,7 @@ use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentBlueprints;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentParameters;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
 use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
+use Bildvitta\IssSupernova\Resources\Juridico;
 use Bildvitta\IssSupernova\Resources\Sicaq;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentTypologies;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
@@ -255,5 +256,10 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     public function sicaq()
     {
         return new Sicaq($this);
+    }
+
+    public function juridico()
+    {
+        return new Juridico($this);
     }
 }
