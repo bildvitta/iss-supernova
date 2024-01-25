@@ -28,7 +28,7 @@ class DocumentObserver
         $data['code_safe'] = $document->signature_parameter->signature_parameter_providers->where('slug', 'code_safe')->first()->value ?? null; //required
         $data['code_folder'] = $document->signature_parameter->signature_parameter_providers->where('slug', 'code_folder')->first()->value ?? null; //required
         $data['creator_user'] = $document->creator_user->hub_uuid ?? null;
-        $data['email'] = $document->signature_parameter->signature_parameter_signatory_types->whereHas('signatory_type', function($query) {
+        $data['email'] = $document->signature_parameter->signature_parameter_signatory_types()->whereHas('signatory_type', function($query) {
             $query->where('name', 'Crédito');
         })->first()->email ?? null;
         $data['sync_to'] = 'sys';
@@ -64,7 +64,7 @@ class DocumentObserver
         $data['code_safe'] = $document->signature_parameter->signature_parameter_providers->where('slug', 'code_safe')->first()->value ?? null; //required
         $data['code_folder'] = $document->signature_parameter->signature_parameter_providers->where('slug', 'code_folder')->first()->value ?? null; //required
         $data['creator_user'] = $document->creator_user->hub_uuid ?? null;
-        $data['email'] = $document->signature_parameter->signature_parameter_signatory_types->whereHas('signatory_type', function($query) {
+        $data['email'] = $document->signature_parameter->signature_parameter_signatory_types()->whereHas('signatory_type', function($query) {
             $query->where('name', 'Crédito');
         })->first()->email ?? null;
         $data['sync_to'] = 'sys';
