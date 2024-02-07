@@ -23,6 +23,10 @@ class DocumentObserver
             return;
         }
 
+        $document->loadMissing(
+            'document_type',
+        );
+
         $data = $document->toArray();
 
         $data['code_safe'] = $document->signature_parameter->signature_parameter_providers->where('slug', 'code_safe')->first()->value ?? null; //required
@@ -58,6 +62,10 @@ class DocumentObserver
         if ($document->provider_external_id == null) {
             return;
         }
+
+        $document->loadMissing(
+            'document_type',
+        );
 
         $data = $document->toArray();
 
