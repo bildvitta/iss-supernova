@@ -20,4 +20,12 @@ class CreditoVitta
             $query
         )->throw()->object();
     }
+
+    public function counters($query)
+    {
+        return $this->issSupernova->request->get(
+            '/sys/credito-vitta/counters',
+            $query
+        )->throw()->object();
+    }
 }
