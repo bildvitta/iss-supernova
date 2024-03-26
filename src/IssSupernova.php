@@ -100,18 +100,37 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         return $this->request = Http::withToken($this->token)
             ->baseUrl(Config::get('iss-supernova.base_uri').Config::get('iss-supernova.prefix'))
             ->withOptions(self::DEFAULT_OPTIONS)
-            ->withHeaders($this->getHeaders());
+            ->withHeaders(self::DEFAULT_HEADERS);
     }
 
-    public function getHeaders(): array
+    //
+
+    public function get($url, $query = [])
     {
-        return array_merge(
-            self::DEFAULT_HEADERS,
-            [
-                'Almobi-Host' => Config::get('app.slug', ''),
-            ]
-        );
+        return $this->request->get($url, $query);
     }
+
+    public function post($url, $data = [])
+    {
+        return $this->request->post($url, $data);
+    }
+
+    public function put($url, $data = [])
+    {
+        return $this->request->put($url, $data);
+    }
+
+    public function patch($url, $data = [])
+    {
+        return $this->request->patch($url, $data);
+    }
+
+    public function delete($url, $data = [])
+    {
+        return $this->request->delete($url, $data);
+    }
+
+    //
 
     public function realEstateDevelopments()
     {
