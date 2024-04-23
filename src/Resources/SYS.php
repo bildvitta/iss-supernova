@@ -5,6 +5,7 @@ namespace Bildvitta\IssSupernova\Resources;
 use Bildvitta\IssSupernova\IssSupernova;
 use Bildvitta\IssSupernova\Resources\SYS\Cadastral;
 use Bildvitta\IssSupernova\Resources\SYS\CreditoVitta;
+use stdClass;
 
 class SYS
 {
@@ -23,5 +24,14 @@ class SYS
     public function creditoVitta()
     {
         return new CreditoVitta($this->issSupernova);
+    }
+
+    public function statusUnidade(string $unitUuid): stdClass
+    {
+        return $this->issSupernova
+            ->request
+            ->get('/sys/status-unidade', ['unit_uuid' => $unitUuid])
+            ->throw()
+            ->object();
     }
 }
