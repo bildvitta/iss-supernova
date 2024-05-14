@@ -5,6 +5,7 @@ namespace Bildvitta\IssSupernova\Resources;
 use Bildvitta\IssSupernova\IssSupernova;
 use Bildvitta\IssSupernova\Resources\SYS\Cadastral;
 use Bildvitta\IssSupernova\Resources\SYS\CreditoVitta;
+use Bildvitta\IssSupernova\Resources\SYS\Tipologias;
 use stdClass;
 
 class SYS
@@ -33,5 +34,10 @@ class SYS
             ->get('/sys/status-unidade', ['unit_uuid' => $unitUuid])
             ->throw()
             ->object();
+    }
+
+    public function tipologias(): Tipologias
+    {
+        return new Tipologias($this->issSupernova);
     }
 }
