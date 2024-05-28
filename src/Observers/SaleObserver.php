@@ -32,7 +32,8 @@ class SaleObserver
             'hub_company_real_estate_agency',
             'justified_user',
             'accessories',
-            'real_estate_development'
+            'real_estate_development',
+            'made_by_user'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -113,7 +114,8 @@ class SaleObserver
             'hub_company_real_estate_agency',
             'justified_user',
             'accessories',
-            'real_estate_development'
+            'real_estate_development',
+            'made_by_user'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
