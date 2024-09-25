@@ -23,14 +23,21 @@ class SaleLogObserver
         );
         if ($saleLog->sale) {
             $saleLog->sale->loadMissing(
-                'unit'
+                'unit',
+                'real_estate_development',
             );
+
+            if ($saleLog->sale->real_estate_development) {
+                $saleLog->sale->real_estate_development->loadMissing(
+                    'hub_company'
+                );
+            }
         }
 
         $data = $saleLog->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (!in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
@@ -58,14 +65,21 @@ class SaleLogObserver
         );
         if ($saleLog->sale) {
             $saleLog->sale->loadMissing(
-                'unit'
+                'unit',
+                'real_estate_development',
             );
+
+            if ($saleLog->sale->real_estate_development) {
+                $saleLog->sale->real_estate_development->loadMissing(
+                    'hub_company'
+                );
+            }
         }
 
         $data = $saleLog->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (!in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
