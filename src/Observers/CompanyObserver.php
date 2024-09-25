@@ -27,7 +27,9 @@ class CompanyObserver
         $data = $company->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['uuid'], Config::get('iss-supernova.companies'))) {
+        $hasUuid = $data['main_company'] ? $data['main_company']['uuid'] : $data['uuid'];
+
+        if (!in_array($hasUuid, Config::get('iss-supernova.companies'))) {
             return;
         }
 
@@ -62,7 +64,9 @@ class CompanyObserver
         $data = $company->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['uuid'], Config::get('iss-supernova.companies'))) {
+        $hasUuid = $data['main_company'] ? $data['main_company']['uuid'] : $data['uuid'];
+
+        if (!in_array($hasUuid, Config::get('iss-supernova.companies'))) {
             return;
         }
 
