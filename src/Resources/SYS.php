@@ -4,6 +4,7 @@ namespace Bildvitta\IssSupernova\Resources;
 
 use Bildvitta\IssSupernova\IssSupernova;
 use Bildvitta\IssSupernova\Resources\SYS\Cadastral;
+use Bildvitta\IssSupernova\Resources\SYS\CessaoDireito;
 use Bildvitta\IssSupernova\Resources\SYS\CreditoVitta;
 use Bildvitta\IssSupernova\Resources\SYS\Tipologias;
 use stdClass;
@@ -39,5 +40,10 @@ class SYS
     public function tipologias(): Tipologias
     {
         return new Tipologias($this->issSupernova);
+    }
+
+    public function cessaoDireito(): CessaoDireito
+    {
+        return new CessaoDireito($this->issSupernova);
     }
 }
