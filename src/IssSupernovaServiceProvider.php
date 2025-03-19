@@ -4,7 +4,6 @@ namespace Bildvitta\IssSupernova;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Bildvitta\IssSupernova\Commands\IssSupernovaCommand;
 
 class IssSupernovaServiceProvider extends PackageServiceProvider
 {

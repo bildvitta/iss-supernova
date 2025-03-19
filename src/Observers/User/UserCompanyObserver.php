@@ -8,7 +8,7 @@ class UserCompanyObserver
 {
     public function created($userCompany)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -23,7 +23,7 @@ class UserCompanyObserver
 
     public function updated($userCompany)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 

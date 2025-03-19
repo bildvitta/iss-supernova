@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova;
 
+use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
 use Bildvitta\IssSupernova\Resources\Companies;
 use Bildvitta\IssSupernova\Resources\CustomerBankAccounts;
 use Bildvitta\IssSupernova\Resources\CustomerCreditCards;
@@ -17,19 +18,18 @@ use Bildvitta\IssSupernova\Resources\CustomerInvestments;
 use Bildvitta\IssSupernova\Resources\CustomerMonthlyFamilyExpenses;
 use Bildvitta\IssSupernova\Resources\CustomerPersonalReferences;
 use Bildvitta\IssSupernova\Resources\Customers;
+use Bildvitta\IssSupernova\Resources\Juridico;
 use Bildvitta\IssSupernova\Resources\RealEstateAgencies;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentAccessories;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentBlueprints;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentParameters;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopments;
-use Bildvitta\IssSupernova\Contracts\IssSupernovaFactory;
-use Bildvitta\IssSupernova\Resources\Juridico;
-use Bildvitta\IssSupernova\Resources\Sicaq;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentTypologies;
 use Bildvitta\IssSupernova\Resources\RealEstateDevelopmentUnits;
 use Bildvitta\IssSupernova\Resources\SaleAccessories;
 use Bildvitta\IssSupernova\Resources\SalePeriodicities;
 use Bildvitta\IssSupernova\Resources\Sales;
+use Bildvitta\IssSupernova\Resources\Sicaq;
 use Bildvitta\IssSupernova\Resources\SYS;
 use Bildvitta\IssSupernova\Resources\Users;
 use Bildvitta\IssSupernova\Resources\Vendas;
@@ -82,7 +82,7 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
 
     private function getToken()
     {
-        $hubUrl = Config::get('hub.base_uri') . Config::get('hub.oauth.token_uri');
+        $hubUrl = Config::get('hub.base_uri').Config::get('hub.oauth.token_uri');
         $clientId = Config::get('hub.programatic_access.client_id');
         $secretId = Config::get('hub.programatic_access.client_secret');
         $response = Http::asForm()->post($hubUrl, [

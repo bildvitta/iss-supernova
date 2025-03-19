@@ -2,8 +2,6 @@
 
 namespace Bildvitta\IssSupernova\Traits;
 
-use Illuminate\Support\Facades\DB;
-
 trait UsesSupernovaDB
 {
     public function __construct(array $attributes = [])
@@ -15,6 +13,7 @@ trait UsesSupernovaDB
     public static function __callStatic($method, $parameters)
     {
         self::configDbConnection();
+
         return parent::__callStatic($method, $parameters);
     }
 
@@ -36,7 +35,7 @@ trait UsesSupernovaDB
                 'strict' => true,
                 'engine' => null,
                 'options' => [],
-            ]
+            ],
         ]);
     }
 }

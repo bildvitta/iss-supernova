@@ -3,7 +3,6 @@
 namespace Bildvitta\IssSupernova\Observers\Customer;
 
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
@@ -11,7 +10,7 @@ class FinancialCommitmentObserver
 {
     public function created($financialCommitment)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -36,13 +35,14 @@ class FinancialCommitmentObserver
         $data = $financialCommitment->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerFinancialCommitments()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
@@ -52,7 +52,7 @@ class FinancialCommitmentObserver
 
     public function updated($financialCommitment)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -79,13 +79,14 @@ class FinancialCommitmentObserver
         $data = $financialCommitment->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerFinancialCommitments()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
             Log::error($exception->getMessage());
