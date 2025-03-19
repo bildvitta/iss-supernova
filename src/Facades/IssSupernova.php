@@ -11,6 +11,6 @@ class IssSupernova extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'iss-supernova';
+        return \Bildvitta\IssSupernova\IssSupernova::class;
     }
 }
