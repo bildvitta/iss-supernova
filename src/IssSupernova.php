@@ -63,15 +63,12 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
 
         if ($programmatic) {
             $clientId = Config::get('hub.programatic_access.client_id');
-            /*
             if (Cache::has($clientId)) {
                 $accessToken = Cache::get($clientId);
             } else {
                 $accessToken = $this->getToken();
                 Cache::add($clientId, $accessToken, now()->addSeconds(31536000));
             }
-            */
-            $accessToken = $this->getToken();
             $this->token = $accessToken;
         }
 
