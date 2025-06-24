@@ -33,7 +33,9 @@ class SaleObserver
             'justified_user',
             'accessories',
             'real_estate_development',
-            'made_by_user'
+            'made_by_user',
+            'crm_channel',
+            'crm_subchannel'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
@@ -115,7 +117,9 @@ class SaleObserver
             'justified_user',
             'accessories',
             'real_estate_development',
-            'made_by_user'
+            'made_by_user',
+            'crm_channel',
+            'crm_subchannel'
         );
         if ($sale->product) {
             $sale->product->loadMissing(
