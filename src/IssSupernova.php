@@ -55,6 +55,13 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         }
 
         $this->setToken($token, $programmatic);
+
+        if(! $this->testToken()) {
+            $clientId = Config::get('hub.programatic_access.client_id');
+            $accessToken = $this->getToken();
+
+            Cache::set($clientId, $accessToken, now()->addDays(14));
+        }
     }
 
     public function setToken(string $token, bool $programmatic = false): IssSupernova
@@ -63,18 +70,29 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
 
         if ($programmatic) {
             $clientId = Config::get('hub.programatic_access.client_id');
-            if (Cache::has($clientId)) {
+
+            $hasCache = Cache::has($clientId);
+
+            if ($hasCache) {
                 $accessToken = Cache::get($clientId);
-            } else {
-                $accessToken = $this->getToken();
-                Cache::add($clientId, $accessToken, now()->addSeconds(31536000));
             }
+
+            if (! $hasCache) {
+                $accessToken = $this->getToken();
+                Cache::set($clientId, $accessToken, now()->addDays(14));
+            }
+
             $this->token = $accessToken;
         }
 
         $this->prepareRequest();
 
         return $this;
+    }
+
+    private function testToken(): bool
+    {
+        return $this->request->get('/test-token')->successful();
     }
 
     private function getToken()
