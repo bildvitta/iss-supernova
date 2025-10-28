@@ -4,7 +4,4 @@ namespace Bildvitta\IssSupernova\Exceptions\Customer;
 
 use Bildvitta\IssSupernova\Exceptions\SupernovaException;
 
-class PersonalReferenceException extends SupernovaException
-{
-
-}
+class PersonalReferenceException extends SupernovaException {}

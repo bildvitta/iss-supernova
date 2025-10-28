@@ -9,8 +9,8 @@ use Ramsey\Uuid\Uuid;
 
 abstract class ModelSync extends Model
 {
-    use UsesSupernovaDB;
     use SoftDeletes;
+    use UsesSupernovaDB;
 
     protected $connection = 'iss-supernova';
 

@@ -1,20 +1,3 @@
 {
-  "preset": "psr12",
-  "rules": {
-    "no_unused_imports": false,
-    "array_indentation": true,
-    "array_syntax": {
-      "syntax": "short"
-    },
-    "blank_line_after_namespace": true,
-    "class_definition": true,
-    "indentation_type": true,
-    "linebreak_after_opening_tag": true,
-    "method_chaining_indentation": true,
-    "ordered_imports": {
-      "sort_algorithm": "alpha"
-    },
-    "phpdoc_order": true,
-    "phpdoc_separation": true
-  }
+    "preset": "laravel"
 }

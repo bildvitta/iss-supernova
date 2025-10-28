@@ -4,8 +4,6 @@ namespace Bildvitta\IssSupernova\Observers;
 
 use Bildvitta\IssSupernova\Exceptions\SaleException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Http\Client\RequestException;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
@@ -16,7 +14,7 @@ class SaleObserver
      */
     public function created($sale)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -69,15 +67,15 @@ class SaleObserver
         $data = $sale->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->sales()->create($data);
         } catch (\Throwable $exception) {
-            Log::error("[SupernovaSaleObserver][created] " . $exception->getMessage(), $data);
+            Log::error('[SupernovaSaleObserver][created] '.$exception->getMessage(), $data);
             throw new SaleException(
                 $exception->getMessage(),
                 $exception->getCode(),
@@ -105,7 +103,7 @@ class SaleObserver
      */
     public function updated($sale)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -159,15 +157,15 @@ class SaleObserver
         $data = $sale->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->sales()->update($data);
         } catch (\Throwable $exception) {
-            Log::error("[SupernovaSaleObserver][updated] " . $exception->getMessage(), $data);
+            Log::error('[SupernovaSaleObserver][updated] '.$exception->getMessage(), $data);
             throw new SaleException(
                 $exception->getMessage(),
                 $exception->getCode(),

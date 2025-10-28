@@ -4,7 +4,6 @@ namespace Bildvitta\IssSupernova\Observers\Customer;
 
 use Bildvitta\IssSupernova\Exceptions\Customer\InvestmentException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
@@ -15,7 +14,7 @@ class InvestmentObserver
      */
     public function created($investment)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -40,16 +39,17 @@ class InvestmentObserver
         $data = $investment->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerInvestments()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error("[InvestmentObserver][created] " . $exception->getMessage(), $data);
+            Log::error('[InvestmentObserver][created] '.$exception->getMessage(), $data);
             throw new InvestmentException(
                 $exception->getMessage(),
                 $exception->getCode(),
@@ -63,7 +63,7 @@ class InvestmentObserver
      */
     public function updated($investment)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -90,16 +90,17 @@ class InvestmentObserver
         $data = $investment->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerInvestments()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error("[InvestmentObserver][updated] " . $exception->getMessage(), $data);
+            Log::error('[InvestmentObserver][updated] '.$exception->getMessage(), $data);
             throw new InvestmentException(
                 $exception->getMessage(),
                 $exception->getCode(),

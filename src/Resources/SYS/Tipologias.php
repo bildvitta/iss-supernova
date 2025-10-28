@@ -15,10 +15,10 @@ class Tipologias
     }
 
     public function options(
-        string $realEstateDevelopmentUuid, 
-        string $search = '', 
-        array $ids = [], 
-        int $limit = 12, 
+        string $realEstateDevelopmentUuid,
+        string $search = '',
+        array $ids = [],
+        int $limit = 12,
         int $offset = 0
     ): stdClass {
         $query = [
@@ -26,7 +26,7 @@ class Tipologias
             'search' => $search,
             'ids' => $ids,
             'limit' => $limit,
-            'offset' => $offset
+            'offset' => $offset,
         ];
 
         return $this->issSupernova
@@ -36,11 +36,11 @@ class Tipologias
             ->object();
     }
 
-    public function show(int $sysTypologyId): stdClass 
+    public function show(int $sysTypologyId): stdClass
     {
         return $this->issSupernova
             ->request
-            ->get('/sys/repasse/tipologias/' . $sysTypologyId)
+            ->get('/sys/repasse/tipologias/'.$sysTypologyId)
             ->throw()
             ->object();
     }

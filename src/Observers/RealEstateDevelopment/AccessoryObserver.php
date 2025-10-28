@@ -4,7 +4,6 @@ namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 
 use Bildvitta\IssSupernova\Exceptions\RealEstateDevelopment\AccessoryException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
@@ -15,7 +14,7 @@ class AccessoryObserver
      */
     public function created($accessory)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -41,11 +40,12 @@ class AccessoryObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->realEstateDevelopmentAccessories()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error("[AccessoryObserver][created] " . $exception->getMessage(), $data);
+            Log::error('[AccessoryObserver][created] '.$exception->getMessage(), $data);
             throw new AccessoryException(
                 $exception->getMessage(),
                 $exception->getCode(),
@@ -59,7 +59,7 @@ class AccessoryObserver
      */
     public function updated($accessory)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -87,11 +87,12 @@ class AccessoryObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->realEstateDevelopmentAccessories()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error("[AccessoryObserver][updated] " . $exception->getMessage(), $data);
+            Log::error('[AccessoryObserver][updated] '.$exception->getMessage(), $data);
             throw new AccessoryException(
                 $exception->getMessage(),
                 $exception->getCode(),

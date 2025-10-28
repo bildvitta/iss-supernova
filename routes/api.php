@@ -6,7 +6,7 @@ Route::prefix('api')->middleware('api')->group(function () {
     Route::get('supernova/trigger-event', function (\Illuminate\Http\Request $request) {
 
         try {
-            $event = $request->input('event'); //eloquent.updated: App\User
+            $event = $request->input('event'); // eloquent.updated: App\User
             $modelName = $request->input('model');
             $id = $request->input('id');
 
@@ -16,7 +16,7 @@ Route::prefix('api')->middleware('api')->group(function () {
         } catch (\Throwable $exception) {
             return response()->json([
                 'status' => '500',
-                'error' => (string)$exception,
+                'error' => (string) $exception,
             ], 500);
         }
 

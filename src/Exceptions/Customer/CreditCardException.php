@@ -4,7 +4,4 @@ namespace Bildvitta\IssSupernova\Exceptions\Customer;
 
 use Bildvitta\IssSupernova\Exceptions\SupernovaException;
 
-class CreditCardException extends SupernovaException
-{
-
-}
+class CreditCardException extends SupernovaException {}

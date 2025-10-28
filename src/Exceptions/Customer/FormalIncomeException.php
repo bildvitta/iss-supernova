@@ -4,7 +4,4 @@ namespace Bildvitta\IssSupernova\Exceptions\Customer;
 
 use Bildvitta\IssSupernova\Exceptions\SupernovaException;
 
-class FormalIncomeException extends SupernovaException
-{
-
-}
+class FormalIncomeException extends SupernovaException {}

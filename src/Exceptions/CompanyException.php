@@ -2,7 +2,4 @@
 
 namespace Bildvitta\IssSupernova\Exceptions;
 
-class CompanyException extends SupernovaException
-{
-
-}
+class CompanyException extends SupernovaException {}

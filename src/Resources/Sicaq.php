@@ -7,25 +7,13 @@ use Illuminate\Http\Client\Response;
 
 class Sicaq
 {
-    /**
-     * @var IssSupernova
-     */
     private IssSupernova $issSupernova;
 
-    /**
-     * @param IssSupernova $issSupernova
-     */
     public function __construct(IssSupernova $issSupernova)
     {
         $this->issSupernova = $issSupernova;
     }
 
-    /**
-     * @param string $realEstateDevelopmentUuid
-     * @param string $typologyUuid
-     * @param string $document
-     * @return Response
-     */
     public function periodicities(string $realEstateDevelopmentUuid, string $typologyUuid, string $document): Response
     {
         $data = [
