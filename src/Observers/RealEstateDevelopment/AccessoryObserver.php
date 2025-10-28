@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 
+use Bildvitta\IssSupernova\Exceptions\RealEstateDevelopment\AccessoryException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class AccessoryObserver
 {
+    /**
+     * @throws AccessoryException
+     */
     public function created($accessory)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -41,11 +45,18 @@ class AccessoryObserver
             $response = $issSupernova->realEstateDevelopmentAccessories()->create($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[AccessoryObserver][created] " . $exception->getMessage(), $data);
+            throw new AccessoryException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws AccessoryException
+     */
     public function updated($accessory)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -80,11 +91,18 @@ class AccessoryObserver
             $response = $issSupernova->realEstateDevelopmentAccessories()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[AccessoryObserver][updated] " . $exception->getMessage(), $data);
+            throw new AccessoryException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws AccessoryException
+     */
     public function deleted($accessory)
     {
         $this->updated($accessory);

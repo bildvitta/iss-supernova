@@ -3,6 +3,7 @@
 namespace Bildvitta\IssSupernova\Observers\User;
 
 use App\Models\User;
+use Bildvitta\IssSupernova\Exceptions\User\UserException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\Log;
 
 class UserObserver
 {
+    /**
+     * @throws UserException
+     */
     public function created($user)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -52,12 +56,12 @@ class UserObserver
                 });
             });
         })
-        ->first(['uuid'])?->uuid;
-    
+            ->first(['uuid'])?->uuid;
+
         //Gerente
         $data['manager_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
             $query->where('company_id', $user->company_id);
-            
+
             //Usuário que tenha cargo de Gerente
             $query->whereIn('position_id', self::getManagerPositionsFromCompany($user->company_id)->pluck('id'));
 
@@ -82,7 +86,7 @@ class UserObserver
                 });
             });
         })
-        ->first(['uuid'])?->uuid;
+            ->first(['uuid'])?->uuid;
 
         $data['is_real_estate_broker'] = $user->user_companies->contains(function ($userCompany) use ($user) {
             return self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
@@ -101,11 +105,18 @@ class UserObserver
             $response = $issSupernova->users()->create($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[UserObserver][created] " . $exception->getMessage(), $data);
+            throw new UserException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws UserException
+     */
     public function updated($user)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -150,8 +161,8 @@ class UserObserver
                 });
             });
         })
-        ->first(['uuid'])?->uuid;
-    
+            ->first(['uuid'])?->uuid;
+
         //Gerente
         $data['manager_uuid'] = config('hub.model_user')::query()->whereHas('user_companies', function ($query) use ($user) {
             $query->where('company_id', $user->company_id);
@@ -180,7 +191,7 @@ class UserObserver
                 });
             });
         })
-        ->first(['uuid'])?->uuid;
+            ->first(['uuid'])?->uuid;
 
         $data['is_real_estate_broker'] = $user->user_companies->contains(function ($userCompany) use ($user) {
             return self::getRealEstateBrokerPositionsFromCompany($user->company_id)->pluck('id')->contains($userCompany->position_id);
@@ -199,11 +210,18 @@ class UserObserver
             $response = $issSupernova->users()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[UserObserver][updated] " . $exception->getMessage(), $data);
+            throw new UserException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws UserException
+     */
     public function deleted($user)
     {
         $this->updated($user);
@@ -215,7 +233,7 @@ class UserObserver
             return collect();
         }
 
-        while($mainCompany->main_company_id) {
+        while ($mainCompany->main_company_id) {
             $mainCompany = $mainCompany->main_company;
         }
 
@@ -230,7 +248,7 @@ class UserObserver
             return collect();
         }
 
-        while($mainCompany->main_company_id) {
+        while ($mainCompany->main_company_id) {
             $mainCompany = $mainCompany->main_company;
         }
 
@@ -245,7 +263,7 @@ class UserObserver
             return collect();
         }
 
-        while($mainCompany->main_company_id) {
+        while ($mainCompany->main_company_id) {
             $mainCompany = $mainCompany->main_company;
         }
 

@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova\Observers;
 
+use Bildvitta\IssSupernova\Exceptions\SalePeriodicityException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class SalePeriodicityObserver
 {
+    /**
+     * @throws SalePeriodicityException
+     */
     public function created($salePeriodicity)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -42,11 +46,18 @@ class SalePeriodicityObserver
             $response = $issSupernova->salePeriodicities()->create($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[SalePeriodicityObserver][created]" . $exception->getMessage(), $data);
+            throw new SalePeriodicityException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws SalePeriodicityException
+     */
     public function updated($salePeriodicity)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -82,11 +93,18 @@ class SalePeriodicityObserver
             $response = $issSupernova->salePeriodicities()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[SalePeriodicityObserver][updated]" . $exception->getMessage(), $data);
+            throw new SalePeriodicityException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws SalePeriodicityException
+     */
     public function deleted($salePeriodicity)
     {
         $this->updated($salePeriodicity);

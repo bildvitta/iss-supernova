@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova\Observers;
 
+use Bildvitta\IssSupernova\Exceptions\RealEstateAgencyException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class RealEstateAgencyObserver
 {
+    /**
+     * @throws RealEstateAgencyException
+     */
     public function created($realEstateAgency)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -23,11 +27,18 @@ class RealEstateAgencyObserver
             $response = $issSupernova->realEstateAgencies()->create($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[RealEstateAgencyObserver][created] " . $exception->getMessage(), $data);
+            throw new RealEstateAgencyException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws RealEstateAgencyException
+     */
     public function updated($realEstateAgency)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -44,11 +55,18 @@ class RealEstateAgencyObserver
             $response = $issSupernova->realEstateAgencies()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[RealEstateAgencyObserver][updated] " . $exception->getMessage(), $data);
+            throw new RealEstateAgencyException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws RealEstateAgencyException
+     */
     public function deleted($realEstateAgency)
     {
         $this->updated($realEstateAgency);

@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 
+use Bildvitta\IssSupernova\Exceptions\RealEstateDevelopment\BlueprintException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class BlueprintObserver
 {
+    /**
+     * @throws BlueprintException
+     */
     public function created($blueprint)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -47,7 +51,7 @@ class BlueprintObserver
 
         $data = $blueprint->toArray();
 
-        foreach($data['real_estate_developments_blueprint_images'] as $index => $blueprintImage) {
+        foreach ($data['real_estate_developments_blueprint_images'] as $index => $blueprintImage) {
             if (!empty($blueprintImage['image'])) {
                 $data['real_estate_developments_blueprint_images'][$index]['image'] = explode('?', $blueprintImage['image'])[0];
             }
@@ -64,11 +68,18 @@ class BlueprintObserver
             $response = $issSupernova->realEstateDevelopmentBlueprints()->create($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[BlueprintObserver][created] " . $exception->getMessage(), $data);
+            throw new BlueprintException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws BlueprintException
+     */
     public function updated($blueprint)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -76,7 +87,7 @@ class BlueprintObserver
         }
 
         $blueprint->refresh();
-        
+
         $blueprint->loadMissing(
             'real_estate_development',
             'real_estate_developments_characteristics',
@@ -108,7 +119,7 @@ class BlueprintObserver
 
         $data = $blueprint->toArray();
 
-        foreach($data['real_estate_developments_blueprint_images'] as $index => $blueprintImage) {
+        foreach ($data['real_estate_developments_blueprint_images'] as $index => $blueprintImage) {
             if (!empty($blueprintImage['image'])) {
                 $data['real_estate_developments_blueprint_images'][$index]['image'] = explode('?', $blueprintImage['image'])[0];
             }
@@ -125,11 +136,18 @@ class BlueprintObserver
             $response = $issSupernova->realEstateDevelopmentBlueprints()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[BlueprintObserver][updated] " . $exception->getMessage(), $data);
+            throw new BlueprintException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws BlueprintException
+     */
     public function deleted($blueprint)
     {
         $this->updated($blueprint);

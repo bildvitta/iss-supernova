@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova\Observers\Vendas;
 
+use Bildvitta\IssSupernova\Exceptions\Vendas\UnitException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class UnitObserver
 {
+    /**
+     * @throws UnitException
+     */
     public function updated($unit)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -41,8 +45,12 @@ class UnitObserver
             $response = $issSupernova->vendas()->realEstateDevelopmentUnits()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[UnitObserver][updated] " . $exception->getMessage(), $data);
+            throw new UnitException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 

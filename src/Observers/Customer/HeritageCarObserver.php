@@ -2,6 +2,7 @@
 
 namespace Bildvitta\IssSupernova\Observers\Customer;
 
+use Bildvitta\IssSupernova\Exceptions\Customer\HeritageCarException;
 use Bildvitta\IssSupernova\IssSupernova;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
@@ -9,6 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class HeritageCarObserver
 {
+    /**
+     * @throws HeritageCarException
+     */
     public function created($heritageCar)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -45,11 +49,18 @@ class HeritageCarObserver
             $response = $issSupernova->customerHeritageCars()->create($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[HeritageCarObserver][created] " . $exception->getMessage(), $data);
+            throw new HeritageCarException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws HeritageCarException
+     */
     public function updated($heritageCar)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -88,11 +99,18 @@ class HeritageCarObserver
             $response = $issSupernova->customerHeritageCars()->update($data);
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[HeritageCarObserver][updated] " . $exception->getMessage(), $data);
+            throw new HeritageCarException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws HeritageCarException
+     */
     public function deleted($heritageCar)
     {
         $this->updated($heritageCar);

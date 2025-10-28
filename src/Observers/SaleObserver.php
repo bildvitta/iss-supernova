@@ -2,13 +2,18 @@
 
 namespace Bildvitta\IssSupernova\Observers;
 
+use Bildvitta\IssSupernova\Exceptions\SaleException;
 use Bildvitta\IssSupernova\IssSupernova;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class SaleObserver
 {
+    /**
+     * @throws SaleException
+     */
     public function created($sale)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -72,8 +77,12 @@ class SaleObserver
             $issSupernova = new IssSupernova();
             $response = $issSupernova->sales()->create($data);
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[SupernovaSaleObserver][created] " . $exception->getMessage(), $data);
+            throw new SaleException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
 
         if ($sale->accessories) {
@@ -91,6 +100,9 @@ class SaleObserver
         return $response;
     }
 
+    /**
+     * @throws SaleException
+     */
     public function updated($sale)
     {
         if (!Config::get('iss-supernova.base_uri')) {
@@ -155,8 +167,12 @@ class SaleObserver
             $issSupernova = new IssSupernova();
             $response = $issSupernova->sales()->update($data);
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error("[SupernovaSaleObserver][updated] " . $exception->getMessage(), $data);
+            throw new SaleException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
 
         if ($sale->accessories) {
@@ -174,7 +190,10 @@ class SaleObserver
         return $response;
     }
 
-    public function deleted($sale)
+    /**
+     * @throws SaleException
+     */
+    public function deleted($sale): void
     {
         $this->updated($sale);
     }
