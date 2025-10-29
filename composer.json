@@ -41,10 +41,15 @@
         }
     },
     "scripts": {
-        "fix-style": "vendor/bin/pint",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest coverage"
+        "test-coverage": "vendor/bin/pest coverage",
+        "check-style": [
+            "vendor/bin/pint --test"
+        ],
+        "fix-style": [
+            "vendor/bin/pint"
+        ]
     },
     "config": {
         "sort-packages": true,

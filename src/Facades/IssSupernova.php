@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class IssSupernova extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
-        return 'iss-supernova';
+        return \Bildvitta\IssSupernova\IssSupernova::class;
     }
 }
