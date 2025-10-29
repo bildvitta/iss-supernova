@@ -2,16 +2,19 @@
 
 namespace Bildvitta\IssSupernova\Observers;
 
+use Bildvitta\IssSupernova\Exceptions\SalePeriodicityException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class SalePeriodicityObserver
 {
+    /**
+     * @throws SalePeriodicityException
+     */
     public function created($salePeriodicity)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -33,23 +36,31 @@ class SalePeriodicityObserver
         $data = $salePeriodicity->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->salePeriodicities()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[SalePeriodicityObserver][created]'.$exception->getMessage(), $data);
+            throw new SalePeriodicityException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws SalePeriodicityException
+     */
     public function updated($salePeriodicity)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -73,20 +84,28 @@ class SalePeriodicityObserver
         $data = $salePeriodicity->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['sale']['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->salePeriodicities()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[SalePeriodicityObserver][updated]'.$exception->getMessage(), $data);
+            throw new SalePeriodicityException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws SalePeriodicityException
+     */
     public function deleted($salePeriodicity)
     {
         $this->updated($salePeriodicity);

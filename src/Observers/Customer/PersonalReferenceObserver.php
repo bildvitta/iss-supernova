@@ -2,16 +2,19 @@
 
 namespace Bildvitta\IssSupernova\Observers\Customer;
 
+use Bildvitta\IssSupernova\Exceptions\Customer\PersonalReferenceException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class PersonalReferenceObserver
 {
+    /**
+     * @throws PersonalReferenceException
+     */
     public function created($personalReference)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -36,23 +39,31 @@ class PersonalReferenceObserver
         $data = $personalReference->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerPersonalReferences()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[PersonalReferenceObserver][created] '.$exception->getMessage(), $data);
+            throw new PersonalReferenceException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws PersonalReferenceException
+     */
     public function updated($personalReference)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -79,20 +90,28 @@ class PersonalReferenceObserver
         $data = $personalReference->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerPersonalReferences()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[PersonalReferenceObserver][updated] '.$exception->getMessage(), $data);
+            throw new PersonalReferenceException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws PersonalReferenceException
+     */
     public function deleted($personalReference)
     {
         $this->updated($personalReference);

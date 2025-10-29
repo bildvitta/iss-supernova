@@ -2,16 +2,19 @@
 
 namespace Bildvitta\IssSupernova\Observers\Customer;
 
+use Bildvitta\IssSupernova\Exceptions\Customer\MonthlyFamilyExpenseException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class MonthlyFamilyExpenseObserver
 {
+    /**
+     * @throws MonthlyFamilyExpenseException
+     */
     public function created($monthlyFamilyExpense)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -35,23 +38,31 @@ class MonthlyFamilyExpenseObserver
         $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerMonthlyFamilyExpenses()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[MonthlyFamilyExpenseObserver][created] '.$exception->getMessage(), $data);
+            throw new MonthlyFamilyExpenseException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws MonthlyFamilyExpenseException
+     */
     public function updated($monthlyFamilyExpense)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -77,20 +88,28 @@ class MonthlyFamilyExpenseObserver
         $data = $monthlyFamilyExpense->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['customer']['user']['company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->customerMonthlyFamilyExpenses()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[MonthlyFamilyExpenseObserver][updated] '.$exception->getMessage(), $data);
+            throw new MonthlyFamilyExpenseException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws MonthlyFamilyExpenseException
+     */
     public function deleted($monthlyFamilyExpense)
     {
         $this->updated($monthlyFamilyExpense);

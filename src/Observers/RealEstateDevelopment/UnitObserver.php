@@ -2,16 +2,19 @@
 
 namespace Bildvitta\IssSupernova\Observers\RealEstateDevelopment;
 
+use Bildvitta\IssSupernova\Exceptions\RealEstateDevelopment\UnitException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class UnitObserver
 {
+    /**
+     * @throws UnitException
+     */
     public function created($unit)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -35,23 +38,31 @@ class UnitObserver
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->realEstateDevelopmentUnits()->create($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[UnitObserver][created]'.$exception->getMessage(), $data);
+            throw new UnitException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws UnitException
+     */
     public function updated($unit)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -77,20 +88,28 @@ class UnitObserver
         $data = $unit->toArray();
         $data['sync_to'] = 'sys';
 
-        if (!in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
+        if (! in_array($data['real_estate_development']['hub_company']['uuid'], Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->realEstateDevelopmentUnits()->update($data);
+
             return $response;
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[UnitObserver][created]'.$exception->getMessage(), $data);
+            throw new UnitException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
+    /**
+     * @throws UnitException
+     */
     public function deleted($unit)
     {
         $this->updated($unit);

@@ -2,16 +2,19 @@
 
 namespace Bildvitta\IssSupernova\Observers;
 
+use Bildvitta\IssSupernova\Exceptions\CompanyException;
 use Bildvitta\IssSupernova\IssSupernova;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
 class CompanyObserver
 {
+    /**
+     * @throws CompanyException
+     */
     public function created($company)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -29,24 +32,31 @@ class CompanyObserver
 
         $hasUuid = $data['main_company'] ? $data['main_company']['uuid'] : $data['uuid'];
 
-        if (!in_array($hasUuid, Config::get('iss-supernova.companies'))) {
+        if (! in_array($hasUuid, Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->companies()->create($data);
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[CompanyObserver][created] '.$exception->getMessage(), $data);
+            throw new CompanyException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
 
         return $response;
     }
 
+    /**
+     * @throws CompanyException
+     */
     public function updated($company)
     {
-        if (!Config::get('iss-supernova.base_uri')) {
+        if (! Config::get('iss-supernova.base_uri')) {
             return;
         }
 
@@ -66,21 +76,28 @@ class CompanyObserver
 
         $hasUuid = $data['main_company'] ? $data['main_company']['uuid'] : $data['uuid'];
 
-        if (!in_array($hasUuid, Config::get('iss-supernova.companies'))) {
+        if (! in_array($hasUuid, Config::get('iss-supernova.companies'))) {
             return;
         }
 
         try {
-            $issSupernova = new IssSupernova();
+            $issSupernova = new IssSupernova;
             $response = $issSupernova->companies()->update($data);
         } catch (\Throwable $exception) {
-            Log::error($exception->getMessage());
-            throw $exception;
+            Log::error('[CompanyObserver][updated] '.$exception->getMessage(), $data);
+            throw new CompanyException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
 
         return $response;
     }
 
+    /**
+     * @throws CompanyException
+     */
     public function deleted($company)
     {
         $this->updated($company);
