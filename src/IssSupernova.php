@@ -55,13 +55,6 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         }
 
         $this->setToken($token, $programmatic);
-
-        if (! $this->testToken()) {
-            $clientId = Config::get('hub.programatic_access.client_id');
-            $accessToken = $this->getToken();
-
-            Cache::set($clientId, $accessToken, now()->addDays(14));
-        }
     }
 
     public function setToken(string $token, bool $programmatic = false): IssSupernova
@@ -69,20 +62,7 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         $this->token = $token;
 
         if ($programmatic) {
-            $clientId = Config::get('hub.programatic_access.client_id');
-
-            $hasCache = Cache::has($clientId);
-
-            if ($hasCache) {
-                $accessToken = Cache::get($clientId);
-            }
-
-            if (! $hasCache) {
-                $accessToken = $this->getToken();
-                Cache::set($clientId, $accessToken, now()->addDays(14));
-            }
-
-            $this->token = $accessToken;
+            $this->token = $this->getToken();
         }
 
         $this->prepareRequest();
@@ -90,24 +70,31 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
         return $this;
     }
 
-    private function testToken(): bool
-    {
-        return $this->request->get('/test-token')->successful();
-    }
-
-    private function getToken()
+    private function getToken(bool $forceRefresh = false): string
     {
         $hubUrl = Config::get('hub.base_uri').Config::get('hub.oauth.token_uri');
         $clientId = Config::get('hub.programatic_access.client_id');
         $secretId = Config::get('hub.programatic_access.client_secret');
-        $response = Http::asForm()->post($hubUrl, [
-            'grant_type' => 'client_credentials',
-            'client_id' => $clientId,
-            'client_secret' => $secretId,
-            'scope' => '*',
-        ]);
+        $cacheKey = "iss-supernova:{$clientId}";
 
-        return $response->json('access_token');
+        if ($forceRefresh) {
+            Cache::forget($cacheKey);
+        }
+
+        return Cache::remember($cacheKey, now()->addDays(5), function () use ($hubUrl, $clientId, $secretId) {
+            $response = Http::asForm()->post($hubUrl, [
+                'grant_type' => 'client_credentials',
+                'client_id' => $clientId,
+                'client_secret' => $secretId,
+                'scope' => '*',
+            ]);
+
+            if ($response->failed()) {
+                throw new \RuntimeException('Failed to obtain access token from Hub');
+            }
+
+            return $response->json('access_token');
+        });
     }
 
     private function prepareRequest(): PendingRequest
@@ -118,31 +105,62 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
             ->withHeaders(self::DEFAULT_HEADERS);
     }
 
+    private function executeWithRetry(string $method, string $url, array $data = [])
+    {
+        $response = $this->executeRequest($method, $url, $data);
+
+        // See the response for 401 (Unauthorized), try again with a new token.
+        if ($response->status() === 401) {
+            $this->refreshToken();
+            $response = $this->executeRequest($method, $url, $data);
+        }
+
+        return $response;
+    }
+
+    private function executeRequest(string $method, string $url, array $data = [])
+    {
+        return match (strtolower($method)) {
+            'get' => $this->request->get($url, $data),
+            'post' => $this->request->post($url, $data),
+            'put' => $this->request->put($url, $data),
+            'patch' => $this->request->patch($url, $data),
+            'delete' => $this->request->delete($url, $data),
+            default => throw new \InvalidArgumentException("Unsupported HTTP method: {$method}"),
+        };
+    }
+
+    private function refreshToken(): void
+    {
+        $this->token = $this->getToken(true);
+        $this->prepareRequest();
+    }
+
     //
 
     public function get($url, $query = [])
     {
-        return $this->request->get($url, $query);
+        return $this->executeWithRetry('get', $url, $query);
     }
 
     public function post($url, $data = [])
     {
-        return $this->request->post($url, $data);
+        return $this->executeWithRetry('post', $url, $data);
     }
 
     public function put($url, $data = [])
     {
-        return $this->request->put($url, $data);
+        return $this->executeWithRetry('put', $url, $data);
     }
 
     public function patch($url, $data = [])
     {
-        return $this->request->patch($url, $data);
+        return $this->executeWithRetry('patch', $url, $data);
     }
 
     public function delete($url, $data = [])
     {
-        return $this->request->delete($url, $data);
+        return $this->executeWithRetry('delete', $url, $data);
     }
 
     //
