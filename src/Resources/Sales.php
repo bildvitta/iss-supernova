@@ -19,7 +19,7 @@ class Sales
      */
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/sales',
             $data
         )->throw()->object();
@@ -30,7 +30,7 @@ class Sales
      */
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/sales',
             $data
         )->throw()->object();

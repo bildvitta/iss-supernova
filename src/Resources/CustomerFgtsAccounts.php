@@ -15,7 +15,7 @@ class CustomerFgtsAccounts
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/customers/fgts-accounts',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class CustomerFgtsAccounts
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/customers/fgts-accounts',
             $data
         )->throw()->object();

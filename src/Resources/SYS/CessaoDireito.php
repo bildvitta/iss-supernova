@@ -16,7 +16,7 @@ class CessaoDireito
 
     public function gerar(array $payload): Response
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/sys/cessao-direito/gerar',
             $payload
         );

@@ -15,7 +15,7 @@ class RealEstateAgencies
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/real-estate-agencies',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class RealEstateAgencies
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/real-estate-agencies',
             $data
         )->throw()->object();

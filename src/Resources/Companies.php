@@ -15,7 +15,7 @@ class Companies
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/companies',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class Companies
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/companies',
             $data
         )->throw()->object();

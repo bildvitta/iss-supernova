@@ -15,7 +15,7 @@ class RealEstateDevelopmentUnits
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/sales/units',
             $data
         )->throw()->object();

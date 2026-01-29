@@ -15,7 +15,7 @@ class CustomerInformalIncomes
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/customers/informal-incomes',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class CustomerInformalIncomes
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/customers/informal-incomes',
             $data
         )->throw()->object();

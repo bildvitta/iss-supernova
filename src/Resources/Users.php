@@ -15,7 +15,7 @@ class Users
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/users',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class Users
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/users',
             $data
         )->throw()->object();

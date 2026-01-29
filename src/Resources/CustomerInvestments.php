@@ -15,7 +15,7 @@ class CustomerInvestments
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/customers/investments',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class CustomerInvestments
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/customers/investments',
             $data
         )->throw()->object();

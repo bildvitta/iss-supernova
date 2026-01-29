@@ -15,7 +15,7 @@ class CustomerHeritagePropertys
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/customers/heritage-properties',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class CustomerHeritagePropertys
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/customers/heritage-properties',
             $data
         )->throw()->object();

@@ -15,7 +15,7 @@ class Cadastral
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/sys/cadastral',
             $data
         )->throw()->object();

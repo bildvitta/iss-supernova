@@ -15,7 +15,7 @@ class SalePeriodicities
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/sale-periodicities',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class SalePeriodicities
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/sale-periodicities',
             $data
         )->throw()->object();

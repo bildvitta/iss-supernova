@@ -25,7 +25,6 @@ class SYS
     public function statusUnidade(string $unitUuid): stdClass
     {
         return $this->issSupernova
-            ->request
             ->get('/sys/status-unidade', ['unit_uuid' => $unitUuid])
             ->throw()
             ->object();

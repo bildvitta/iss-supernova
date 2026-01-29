@@ -15,7 +15,7 @@ class CustomerMonthlyFamilyExpenses
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/customers/monthly-family-expenses',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class CustomerMonthlyFamilyExpenses
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/customers/monthly-family-expenses',
             $data
         )->throw()->object();

@@ -22,7 +22,7 @@ class Sicaq
             'document' => $document,
         ];
 
-        return $this->issSupernova->request->get(
+        return $this->issSupernova->get(
             '/sicaq/periodicities',
             $data
         );

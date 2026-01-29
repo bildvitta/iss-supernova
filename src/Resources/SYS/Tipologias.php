@@ -30,7 +30,6 @@ class Tipologias
         ];
 
         return $this->issSupernova
-            ->request
             ->get('/sys/repasse/tipologias', $query)
             ->throw()
             ->object();
@@ -39,7 +38,6 @@ class Tipologias
     public function show(int $sysTypologyId): stdClass
     {
         return $this->issSupernova
-            ->request
             ->get('/sys/repasse/tipologias/'.$sysTypologyId)
             ->throw()
             ->object();

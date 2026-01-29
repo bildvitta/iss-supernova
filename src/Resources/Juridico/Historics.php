@@ -15,7 +15,7 @@ class Historics
 
     public function create($data)
     {
-        return $this->issSupernova->request->post(
+        return $this->issSupernova->post(
             '/juridico/historics',
             $data
         )->throw()->object();
@@ -23,7 +23,7 @@ class Historics
 
     public function update($data)
     {
-        return $this->issSupernova->request->put(
+        return $this->issSupernova->put(
             '/juridico/historics',
             $data
         )->throw()->object();
