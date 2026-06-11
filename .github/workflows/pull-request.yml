@@ -33,4 +33,4 @@ jobs:
         run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Check style
-        run: composer check-style`
+        run: composer check-style
