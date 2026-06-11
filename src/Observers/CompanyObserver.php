@@ -37,7 +37,7 @@ class CompanyObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->companies()->create($data);
         } catch (\Throwable $exception) {
             Log::error('[CompanyObserver][created] '.$exception->getMessage(), $data);
@@ -81,7 +81,7 @@ class CompanyObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->companies()->update($data);
         } catch (\Throwable $exception) {
             Log::error('[CompanyObserver][updated] '.$exception->getMessage(), $data);

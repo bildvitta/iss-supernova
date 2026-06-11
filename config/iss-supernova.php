@@ -2,10 +2,10 @@
 
 return [
     'base_uri' => env('MS_SUPERNOVA_BASE_URI'),
-    'prefix' => env('MS_SUPERNOVA_API_PREFIX', '/api'),
-    'db' => [
-        'host' => env('MS_SUPERNOVA_DB_HOST'),
-        'port' => env('MS_SUPERNOVA_DB_PORT'),
+    'prefix'   => env('MS_SUPERNOVA_API_PREFIX', '/api'),
+    'db'       => [
+        'host'     => env('MS_SUPERNOVA_DB_HOST'),
+        'port'     => env('MS_SUPERNOVA_DB_PORT'),
         'database' => env('MS_SUPERNOVA_DB_DATABASE'),
         'username' => env('MS_SUPERNOVA_DB_USERNAME'),
         'password' => env('MS_SUPERNOVA_DB_PASSWORD'),

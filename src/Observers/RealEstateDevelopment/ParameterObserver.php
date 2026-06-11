@@ -33,7 +33,7 @@ class ParameterObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentParameters()->create($data);
 
             return $response;
@@ -73,7 +73,7 @@ class ParameterObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentParameters()->update($data);
 
             return $response;

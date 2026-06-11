@@ -72,7 +72,7 @@ class SaleObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->sales()->create($data);
         } catch (\Throwable $exception) {
             Log::error('[SupernovaSaleObserver][created] '.$exception->getMessage(), $data);
@@ -162,7 +162,7 @@ class SaleObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->sales()->update($data);
         } catch (\Throwable $exception) {
             Log::error('[SupernovaSaleObserver][updated] '.$exception->getMessage(), $data);

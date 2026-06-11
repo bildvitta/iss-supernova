@@ -40,7 +40,7 @@ class AccessoryObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentAccessories()->create($data);
 
             return $response;
@@ -87,7 +87,7 @@ class AccessoryObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentAccessories()->update($data);
 
             return $response;

@@ -44,7 +44,7 @@ class PersonalReferenceObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerPersonalReferences()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class PersonalReferenceObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerPersonalReferences()->update($data);
 
             return $response;

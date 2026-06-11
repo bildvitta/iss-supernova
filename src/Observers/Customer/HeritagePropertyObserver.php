@@ -44,7 +44,7 @@ class HeritagePropertyObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerHeritagePropertys()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class HeritagePropertyObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerHeritagePropertys()->update($data);
 
             return $response;

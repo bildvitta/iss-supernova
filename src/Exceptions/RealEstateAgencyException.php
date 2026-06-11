@@ -2,4 +2,6 @@
 
 namespace Bildvitta\IssSupernova\Exceptions;
 
-class RealEstateAgencyException extends SupernovaException {}
+class RealEstateAgencyException extends SupernovaException
+{
+}

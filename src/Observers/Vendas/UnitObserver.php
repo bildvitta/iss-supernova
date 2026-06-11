@@ -40,7 +40,7 @@ class UnitObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->vendas()->realEstateDevelopmentUnits()->update($data);
 
             return $response;

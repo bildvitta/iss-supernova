@@ -31,7 +31,7 @@ class RealEstateDevelopmentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopments()->create($data);
 
             return $response;
@@ -69,7 +69,7 @@ class RealEstateDevelopmentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopments()->update($data);
 
             return $response;

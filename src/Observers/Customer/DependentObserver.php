@@ -46,7 +46,7 @@ class DependentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerDependents()->create($data);
 
             return $response;
@@ -99,7 +99,7 @@ class DependentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerDependents()->update($data);
 
             return $response;

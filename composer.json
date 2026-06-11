@@ -1,17 +1,17 @@
 {
-    "name": "bildvitta/iss-supernova",
-    "description": "This is my package iss-supernova",
+    "name": "appnave/nave-supernova-iss",
+    "description": "This is my package nave-supernova-iss",
     "keywords": [
         "bildvitta",
         "laravel",
-        "iss-supernova"
+        "nave-supernova-iss"
     ],
-    "homepage": "https://github.com/bildvitta/iss-supernova",
+    "homepage": "https://github.com/appnave/nave-supernova-iss",
     "license": "MIT",
     "authors": [
         {
             "name": "Michael",
-            "email": "cocaoaoao@gmail.com",
+            "email": "contato@nave.app.br",
             "role": "Developer"
         }
     ],

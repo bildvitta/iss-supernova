@@ -22,7 +22,7 @@ class RealEstateAgencyObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateAgencies()->create($data);
 
             return $response;
@@ -51,7 +51,7 @@ class RealEstateAgencyObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateAgencies()->update($data);
 
             return $response;

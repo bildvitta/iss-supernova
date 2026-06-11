@@ -28,7 +28,7 @@ class SignerDocumentObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->juridico()->signerDocuments()->create($data);
 
             return $response;
@@ -63,7 +63,7 @@ class SignerDocumentObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->juridico()->signerDocuments()->update($data);
 
             return $response;

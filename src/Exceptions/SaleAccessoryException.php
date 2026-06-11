@@ -2,4 +2,6 @@
 
 namespace Bildvitta\IssSupernova\Exceptions;
 
-class SaleAccessoryException extends SupernovaException {}
+class SaleAccessoryException extends SupernovaException
+{
+}

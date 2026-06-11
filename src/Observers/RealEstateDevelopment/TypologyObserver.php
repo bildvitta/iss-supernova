@@ -33,7 +33,7 @@ class TypologyObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentTypologies()->create($data);
 
             return $response;
@@ -73,7 +73,7 @@ class TypologyObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentTypologies()->update($data);
 
             return $response;

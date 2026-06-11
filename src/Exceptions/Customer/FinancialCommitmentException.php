@@ -4,4 +4,6 @@ namespace Bildvitta\IssSupernova\Exceptions\Customer;
 
 use Bildvitta\IssSupernova\Exceptions\SupernovaException;
 
-class FinancialCommitmentException extends SupernovaException {}
+class FinancialCommitmentException extends SupernovaException
+{
+}

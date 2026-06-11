@@ -44,7 +44,7 @@ class CreditCardObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerCreditCards()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class CreditCardObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerCreditCards()->update($data);
 
             return $response;

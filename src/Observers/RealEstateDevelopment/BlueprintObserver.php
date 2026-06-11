@@ -63,7 +63,7 @@ class BlueprintObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentBlueprints()->create($data);
 
             return $response;
@@ -132,7 +132,7 @@ class BlueprintObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentBlueprints()->update($data);
 
             return $response;

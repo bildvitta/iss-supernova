@@ -1,78 +1,95 @@
-# This is my package iss-supernova
+# Nave Supernova ISS
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/bildvitta/iss-supernova.svg?style=flat-square)](https://packagist.org/packages/bildvitta/iss-supernova)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/bildvitta/iss-supernova/run-tests?label=tests)](https://github.com/bildvitta/iss-supernova/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bildvitta/iss-supernova/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bildvitta/iss-supernova/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/bildvitta/iss-supernova.svg?style=flat-square)](https://packagist.org/packages/bildvitta/iss-supernova)
+## Visão geral
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Pacote privado para integração do Laravel com o Supernova ISS. Ele é consumido via Composer com repositório VCS e registra automaticamente a configuração do pacote e as rotas internas.
 
-## Support us
+## Requisitos
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/iss-supernova.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/iss-supernova)
+- PHP 8.2 ou superior
+- Laravel 8, 9, 10, 11 ou 12
+- Composer 2
+- Acesso ao repositório privado no GitHub
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+## Acesso a repositórios privados
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+No projeto cliente, declare o repositório VCS antes de instalar o pacote:
 
-## Installation
+```json
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/appnave/nave-supernova-iss"
+    }
+  ]
+}
+```
 
-You can install the package via composer:
+Depois, instale o pacote:
 
 ```bash
-composer require bildvitta/iss-supernova
+composer require appnave/nave-supernova-iss
 ```
 
-You can publish the config file with:
+Se o projeto cliente também consumir outros repositórios privados, mantenha a mesma estratégia de autenticação no Composer.
+
+### Autenticação local
 
 ```bash
-php artisan vendor:publish --tag="iss-supernova-config"
+composer config -g github-oauth.github.com <YOUR_TOKEN>
 ```
 
-This is the contents of the published config file:
+### GitHub Actions
 
-```php
-return [
-    'base_uri' => env('MS_SUPERNOVA_BASE_URI', 'https://api-dev-supernova.nave.dev'),
-    'prefix' => env('MS_SUPERNOVA_API_PREFIX', '/api')
-];
+```yaml
+env:
+  COMPOSER_AUTH: >-
+    {"github-oauth":{"github.com":"${{ secrets.COMPOSER_GITHUB_TOKEN }}"}}
 ```
 
-Optionally, you can publish the views using
+## Instalação local
+
+1. Adicione o repositório VCS no `composer.json` do projeto cliente.
+2. Instale o pacote com `composer require appnave/nave-supernova-iss`.
+3. Publique a configuração do pacote.
 
 ```bash
-php artisan vendor:publish --tag="iss-supernova-views"
+php artisan vendor:publish --tag=iss-supernova-config
 ```
 
-## Usage
+4. Configure as variáveis de ambiente no projeto cliente.
 
-```php
-$issSupernova = new Bildvitta\IssSupernova();
+```env
+MS_SUPERNOVA_BASE_URI=https://sua-url-do-supernova
+MS_SUPERNOVA_API_PREFIX=/api
+MS_SUPERNOVA_DB_HOST=127.0.0.1
+MS_SUPERNOVA_DB_PORT=3306
+MS_SUPERNOVA_DB_DATABASE=iss_supernova
+MS_SUPERNOVA_DB_USERNAME=root
+MS_SUPERNOVA_DB_PASSWORD=secret
+MS_SUPERNOVA_COMPANIES=uuid-1,uuid-2,uuid-3
 ```
 
-## Testing
+5. Garanta que o projeto cliente tenha a configuração `hub` necessária para obter o token de acesso:
+
+- `hub.base_uri`
+- `hub.oauth.token_uri`
+- `hub.programatic_access.client_id`
+- `hub.programatic_access.client_secret`
+
+## Comandos úteis
 
 ```bash
 composer test
+composer analyse
+composer check-style
+composer fix-style
 ```
 
-## Changelog
+## Informações adicionais
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [Michael](https://github.com/bildvitta)
-- [All Contributors](../../contributors)
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+- O pacote registra a conexão de banco `iss-supernova` com base nas variáveis `MS_SUPERNOVA_DB_*`.
+- O namespace PHP principal é `Bildvitta\IssSupernova`.
+- A facade `IssSupernova` é registrada automaticamente pelo pacote.
+- A rota utilitária `GET /api/supernova/trigger-event` é carregada pelo pacote e pode ser usada em ambientes de apoio/local para disparar eventos informados via query string.

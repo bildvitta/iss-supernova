@@ -44,7 +44,7 @@ class FinancialCommitmentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerFinancialCommitments()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class FinancialCommitmentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerFinancialCommitments()->update($data);
 
             return $response;
