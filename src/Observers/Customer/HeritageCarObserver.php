@@ -44,7 +44,7 @@ class HeritageCarObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerHeritageCars()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class HeritageCarObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerHeritageCars()->update($data);
 
             return $response;

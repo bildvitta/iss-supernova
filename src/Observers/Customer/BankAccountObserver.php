@@ -44,7 +44,7 @@ class BankAccountObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerBankAccounts()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class BankAccountObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerBankAccounts()->update($data);
 
             return $response;

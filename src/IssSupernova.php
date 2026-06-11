@@ -83,10 +83,10 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
 
         return Cache::remember($cacheKey, now()->addDays(5), function () use ($hubUrl, $clientId, $secretId) {
             $response = Http::asForm()->post($hubUrl, [
-                'grant_type' => 'client_credentials',
-                'client_id' => $clientId,
+                'grant_type'    => 'client_credentials',
+                'client_id'     => $clientId,
                 'client_secret' => $secretId,
-                'scope' => '*',
+                'scope'         => '*',
             ]);
 
             if ($response->failed()) {
@@ -121,12 +121,12 @@ class IssSupernova extends HttpClient implements IssSupernovaFactory
     private function executeRequest(string $method, string $url, array $data = [])
     {
         return match (strtolower($method)) {
-            'get' => $this->request->get($url, $data),
-            'post' => $this->request->post($url, $data),
-            'put' => $this->request->put($url, $data),
-            'patch' => $this->request->patch($url, $data),
+            'get'    => $this->request->get($url, $data),
+            'post'   => $this->request->post($url, $data),
+            'put'    => $this->request->put($url, $data),
+            'patch'  => $this->request->patch($url, $data),
             'delete' => $this->request->delete($url, $data),
-            default => throw new \InvalidArgumentException("Unsupported HTTP method: {$method}"),
+            default  => throw new \InvalidArgumentException("Unsupported HTTP method: {$method}"),
         };
     }
 

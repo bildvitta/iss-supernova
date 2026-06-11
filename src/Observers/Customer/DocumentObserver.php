@@ -46,7 +46,7 @@ class DocumentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerDocuments()->create($data);
 
             return $response;
@@ -100,7 +100,7 @@ class DocumentObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerDocuments()->update($data);
 
             return $response;

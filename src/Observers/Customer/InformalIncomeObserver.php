@@ -44,7 +44,7 @@ class InformalIncomeObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerInformalIncomes()->create($data);
 
             return $response;
@@ -95,7 +95,7 @@ class InformalIncomeObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerInformalIncomes()->update($data);
 
             return $response;

@@ -43,7 +43,7 @@ class UnitObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentUnits()->create($data);
 
             return $response;
@@ -93,7 +93,7 @@ class UnitObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->realEstateDevelopmentUnits()->update($data);
 
             return $response;

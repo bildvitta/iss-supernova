@@ -23,10 +23,10 @@ class Tipologias
     ): stdClass {
         $query = [
             'real_estate_development_uuid' => $realEstateDevelopmentUuid,
-            'search' => $search,
-            'ids' => $ids,
-            'limit' => $limit,
-            'offset' => $offset,
+            'search'                       => $search,
+            'ids'                          => $ids,
+            'limit'                        => $limit,
+            'offset'                       => $offset,
         ];
 
         return $this->issSupernova

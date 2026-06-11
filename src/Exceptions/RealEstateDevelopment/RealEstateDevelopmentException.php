@@ -4,4 +4,6 @@ namespace Bildvitta\IssSupernova\Exceptions\RealEstateDevelopment;
 
 use Bildvitta\IssSupernova\Exceptions\SupernovaException;
 
-class RealEstateDevelopmentException extends SupernovaException {}
+class RealEstateDevelopmentException extends SupernovaException
+{
+}

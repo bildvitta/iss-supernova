@@ -41,7 +41,7 @@ class SalePeriodicityObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->salePeriodicities()->create($data);
 
             return $response;
@@ -89,7 +89,7 @@ class SalePeriodicityObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->salePeriodicities()->update($data);
 
             return $response;

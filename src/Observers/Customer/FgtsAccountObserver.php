@@ -43,7 +43,7 @@ class FgtsAccountObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerFgtsAccounts()->create($data);
 
             return $response;
@@ -93,7 +93,7 @@ class FgtsAccountObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerFgtsAccounts()->update($data);
 
             return $response;

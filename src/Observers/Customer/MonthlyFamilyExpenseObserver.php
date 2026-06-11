@@ -43,7 +43,7 @@ class MonthlyFamilyExpenseObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerMonthlyFamilyExpenses()->create($data);
 
             return $response;
@@ -93,7 +93,7 @@ class MonthlyFamilyExpenseObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customerMonthlyFamilyExpenses()->update($data);
 
             return $response;

@@ -16,7 +16,7 @@ Route::prefix('api')->middleware('api')->group(function () {
         } catch (\Throwable $exception) {
             return response()->json([
                 'status' => '500',
-                'error' => (string) $exception,
+                'error'  => (string) $exception,
             ], 500);
         }
 

@@ -49,7 +49,7 @@ class SaleAccessoryObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->saleAccessories()->create($data);
 
             return $response;
@@ -105,7 +105,7 @@ class SaleAccessoryObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->saleAccessories()->update($data);
 
             return $response;

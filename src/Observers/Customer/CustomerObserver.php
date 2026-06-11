@@ -78,7 +78,7 @@ class CustomerObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customers()->create($data);
 
             return $response;
@@ -163,7 +163,7 @@ class CustomerObserver
         }
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->customers()->update($data);
 
             return $response;

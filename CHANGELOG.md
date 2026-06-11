@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `iss-supernova` will be documented in this file.
+All notable changes to `nave-supernova-iss` will be documented in this file.
 
 ## 1.0.0 - 202X-XX-XX
 

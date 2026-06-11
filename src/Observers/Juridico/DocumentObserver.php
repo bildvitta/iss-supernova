@@ -41,7 +41,7 @@ class DocumentObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->juridico()->documents()->create($data);
 
             return $response;
@@ -89,7 +89,7 @@ class DocumentObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->juridico()->documents()->update($data);
 
             return $response;

@@ -2,4 +2,6 @@
 
 namespace Bildvitta\IssSupernova\Exceptions;
 
-class SupernovaException extends \Exception {}
+class SupernovaException extends \Exception
+{
+}

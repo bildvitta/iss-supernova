@@ -18,8 +18,8 @@ class Sicaq
     {
         $data = [
             'real_estate_development' => $realEstateDevelopmentUuid,
-            'typology' => $typologyUuid,
-            'document' => $document,
+            'typology'                => $typologyUuid,
+            'document'                => $document,
         ];
 
         return $this->issSupernova->get(

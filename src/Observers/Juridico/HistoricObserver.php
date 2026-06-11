@@ -28,7 +28,7 @@ class HistoricObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->juridico()->historics()->create($data);
 
             return $response;
@@ -63,7 +63,7 @@ class HistoricObserver
         $data['sync_to'] = 'sys';
 
         try {
-            $issSupernova = new IssSupernova;
+            $issSupernova = new IssSupernova();
             $response = $issSupernova->juridico()->historics()->update($data);
 
             return $response;

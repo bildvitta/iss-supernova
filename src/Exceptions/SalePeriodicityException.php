@@ -2,4 +2,6 @@
 
 namespace Bildvitta\IssSupernova\Exceptions;
 
-class SalePeriodicityException extends SupernovaException {}
+class SalePeriodicityException extends SupernovaException
+{
+}
