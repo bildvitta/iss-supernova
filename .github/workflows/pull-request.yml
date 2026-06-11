@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ["8.1", "8.2", "8.3"]
+        php-version: ["8.1", "8.2", "8.3", "8.4"]
 
     steps:
       - name: Checkout
@@ -33,4 +33,4 @@ jobs:
         run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Check style
-        run: composer check-style
+        run: composer check-style`
